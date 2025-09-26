@@ -1,0 +1,321 @@
+.prizesSection {
+  padding: 6rem 1rem;
+  background: transparent;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  background-color: linear-gradient(135deg, #1e293b 0%, #3b82f6 100%);
+  -webkit-text-fill-color: transparent;
+      background-clip: text;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.description {
+  font-size: 1.25rem;
+  color: #6b7280;
+  max-width: 48rem;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.podiumContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 2rem;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+}
+
+.prizeItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.podiumBlock {
+  width: 12rem;
+  border-radius: 1.25rem;
+  position: relative;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.podiumContent {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  color: white;
+}
+
+.placeNumber {
+  font-size: 3.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.placeSuffix {
+  font-size: 1.25rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.bubbleTail {
+  position: absolute;
+  bottom: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 20px;
+  z-index: 0;
+}
+
+.tailShape {
+  width: 2rem;
+  height: 2rem;
+  transform: rotate(45deg);
+  border-radius: 9px;
+  
+}
+
+.prizeCard {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+  padding: 1.5rem;
+  width: 16rem;
+  margin-top: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.prizeTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.prizeValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.prizeItems {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.prizeItem {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.checkIcon {
+  width: 1rem;
+  height: 1rem;
+  color: #10b981;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+.grandPrizeBadge {
+  position: absolute;
+  top: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.badgeContent {
+  background: #ef4444;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.contestDetails {
+  text-align: center;
+  background: white;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.detailsTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detailIcon {
+  font-size: 1.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.detailLabel {
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.detailValue {
+  color: #6b7280;
+}
+
+/* Prize Colors */
+.firstPlace {
+  background: linear-gradient(to bottom, #fbbf24, #d97706);
+}
+
+.secondPlace {
+  background: linear-gradient(to bottom, #9ca3af, #6b7280);
+}
+
+.thirdPlace {
+  background: linear-gradient(to bottom, #ea580c, #c2410c);
+}
+
+/* Heights */
+.tallHeight {
+  height: 10rem;
+}
+
+.mediumHeight {
+  height: 8rem;
+}
+
+.shortHeight {
+  height: 8rem;
+}
+
+/* Order */
+.orderFirst {
+  order: 1;
+}
+
+.orderSecond {
+  order: 2;
+}
+
+.orderThird {
+  order: 3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .podiumContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+  
+  .prizeItem {
+    order: unset !important;
+  }
+  
+  .orderSecond {
+    order: -1;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .description {
+    font-size: 1rem;
+  }
+  
+  .podiumBlock {
+    width: 10rem;
+  }
+  
+  .prizeCard {
+    width: 14rem;
+  }
+  
+  .placeNumber {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .prizesSection {
+    padding: 4rem 1rem;
+  }
+  
+  .podiumBlock {
+    width: 8rem;
+  }
+  
+  .prizeCard {
+    width: 12rem;
+    padding: 1rem;
+  }
+  
+  .placeNumber {
+    font-size: 2.5rem;
+  }
+  
+  .tallHeight {
+    height: 20rem;
+  }
+  
+  .mediumHeight {
+    height: 16rem;
+  }
+  
+  .shortHeight {
+    height: 14rem;
+  }
+}

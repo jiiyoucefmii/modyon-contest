@@ -1,0 +1,530 @@
+.waitlistSection {
+  background: transparent;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  position: relative;
+}
+
+.waitlistSection.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.container {
+  max-width: 600px;
+  width: 100%;
+  z-index: 2;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 24px;
+  padding: 4rem 3rem;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Coming Soon Badge */
+.comingSoonBadge {
+  display: inline-block;
+  background: #6366f1;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+/* Main Heading */
+.mainHeading {
+  font-size: 3rem;
+  font-weight: 300;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* Description */
+.mainDescription {
+  font-size: 1.125rem;
+  color: #6b7280;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* Email Form */
+.emailForm {
+  margin-bottom: 3rem;
+}
+
+.emailInputContainer {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto 1rem;
+  transition: all 0.2s ease;
+  height: 56px;
+}
+
+.emailInputContainer:focus-within {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.emailInputField {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: #1f2937;
+  background: transparent;
+  padding: 0 1rem;
+  height: 100%;
+}
+
+.emailInputField::placeholder {
+  color: #9ca3af;
+}
+
+/* Referral Input */
+.referralInputContainer {
+  max-width: 400px;
+  margin: 0 auto 1rem;
+}
+
+.referralInputContainer {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.referralInputField {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 1rem;
+  background: white;
+  color: #000000;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.referralInputField:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.referralInputField::placeholder {
+  color: #9ca3af;
+}
+
+.referralHint {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.checkingMessage {
+  background: #f3f4f6;
+  color: #374151;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-top: 1rem;
+  border: 1px solid #d1d5db;
+}
+
+.returningUserMessage {
+  background: #ecfdf5;
+  color: #065f46;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-top: 1rem;
+  border: 1px solid #a7f3d0;
+}
+
+.errorMessage {
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-top: 1rem;
+  border: 1px solid #fecaca;
+}
+
+.referralInputField:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.referralInputField::placeholder {
+  color: #9ca3af;
+  text-transform: none;
+  letter-spacing: normal;
+  font-family: inherit;
+}
+
+.arrowButton {
+  background: #6366f1;
+  border: none;
+  border-radius: 8px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.arrowButton:hover:not(:disabled) {
+  background: #5855eb;
+  transform: translateX(2px);
+}
+
+.arrowButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.arrowButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.errorMessage {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* Signup Stats */
+.signupStats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.avatarStack {
+  display: flex;
+  align-items: center;
+}
+
+.avatarItem {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  border: 2px solid white;
+  margin-left: -8px;
+  background-size: cover;
+  background-position: center;
+}
+
+.avatarItem:first-child {
+  margin-left: 0;
+}
+
+.signupText {
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Success State Styles - Updated with black text */
+.successState {
+  text-align: center;
+}
+
+.successState h3 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.successState p {
+  color: #4b5563;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.successState strong {
+  color: #1f2937;
+}
+
+.checkIcon {
+  width: 3rem;
+  height: 3rem;
+  background: #10b981;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  color: white;
+}
+
+.dashboard {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.statNumber {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #6366f1;
+  margin-bottom: 0.5rem;
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.referralSection {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.referralSection h4 {
+  color: #1f2937;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.referralSection p {
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+.referralCode {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.referralCode code {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: #6366f1;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+}
+
+.copyButton {
+  background: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.copyButton:hover {
+  background: #5855eb;
+}
+
+.shareButtons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.shareButton {
+  background: #1da1f2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.shareButton:hover {
+  background: #1a91da;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card {
+    padding: 2.5rem 2rem;
+  }
+  
+  .mainHeading {
+    font-size: 2.25rem;
+  }
+  
+  .mainDescription {
+    font-size: 1rem;
+  }
+  
+  .emailInputContainer {
+    max-width: 100%;
+    padding: 0.375rem;
+    height: 52px;
+  }
+  
+  .emailInputField {
+    font-size: 0.9375rem;
+    padding: 0 0.75rem;
+  }
+  
+  .referralInputField {
+    font-size: 0.9375rem;
+    padding: 0.875rem;
+  }
+  
+  .arrowButton {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .signupStats {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .referralCode {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .copyButton {
+    width: 100%;
+  }
+  
+  .shareButtons {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .mainHeading {
+    font-size: 1.875rem;
+  }
+  
+  .mainDescription {
+    font-size: 0.9375rem;
+  }
+  
+  .comingSoonBadge {
+    font-size: 0.6875rem;
+    padding: 0.375rem 0.75rem;
+  }
+  
+  .emailInputContainer {
+    padding: 0.25rem;
+    height: 48px;
+  }
+  
+  .emailInputField {
+    font-size: 0.875rem;
+    padding: 0 0.5rem;
+  }
+  
+  .referralInputField {
+    font-size: 0.875rem;
+    padding: 0.75rem;
+  }
+  
+  .arrowButton {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .arrowButton svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .emailInputContainer {
+    height: 44px;
+  }
+  
+  .emailInputField {
+    font-size: 0.8125rem;
+    padding: 0 0.375rem;
+  }
+  
+  .referralInputField {
+    font-size: 0.8125rem;
+    padding: 0.625rem;
+  }
+  
+  .arrowButton {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .arrowButton svg {
+    width: 16px;
+    height: 16px;
+  }
+}
