@@ -1,10 +1,5 @@
-import { TEMP_EMAIL_DOMAINS, TEMP_EMAIL_PATTERNS } from './constants';
-
-/**
- * Validates if an email is legitimate (not a temporary/disposable email)
- * @param email Email address to validate
- * @returns Boolean indicating if the email is valid (not temporary)
- */
+import {  TEMP_EMAIL_PATTERNS } from './constants';
+import { emails as TEMP_EMAIL_DOMAINS } from './temp_email_blocklist';
 export function isValidEmail(email: string): boolean {
   if (!email || typeof email !== 'string') return false;
   

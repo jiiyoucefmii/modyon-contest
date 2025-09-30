@@ -11,6 +11,7 @@
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1",
     "@types/pg": "^8.15.5",
+    "fs": "^0.0.1-security",
     "next": "15.5.2",
     "pg": "^8.16.3",
     "react": "19.1.0",

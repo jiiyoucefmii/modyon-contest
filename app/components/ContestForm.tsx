@@ -22,7 +22,7 @@ export default function ContestForm() {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
-  const [signupCount, setSignupCount] = useState(4500);
+  const [signupCount, setSignupCount] = useState(0);
   const [placeholder, setPlaceholder] = useState("jane@example.com");
   const [isReturningUser, setIsReturningUser] = useState(false);
   const [isCheckingUser, setIsCheckingUser] = useState(false);
@@ -32,6 +32,22 @@ export default function ContestForm() {
   // Fix hydration mismatch by ensuring client-side rendering
   useEffect(() => {
     setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    // Fetch initial signup count from server
+    const fetchSignupCount = async () => {
+      try {
+        const response = await fetch("/api/giveaway/admin/stats");
+        if (response.ok) {
+          const data = await response.json();
+          setSignupCount(data.totalUsers || 0);
+        }
+      } catch (err) {
+        console.error("Error fetching signup count:", err);
+      }
+    };
+    fetchSignupCount();
   }, []);
 
   // Update placeholder based on screen size
@@ -351,19 +367,19 @@ export default function ContestForm() {
             <div className={styles.avatarStack}>
               <div
                 className={styles.avatarItem}
-                style={{ backgroundImage: "url(/api/placeholder/32/32?1)" }}
+                style={{ backgroundImage: "url(/men1.png" }}
               ></div>
               <div
                 className={styles.avatarItem}
-                style={{ backgroundImage: "url(/api/placeholder/32/32?2)" }}
+                style={{ backgroundImage: "url(/men2.png)" }}
               ></div>
               <div
                 className={styles.avatarItem}
-                style={{ backgroundImage: "url(/api/placeholder/32/32?3)" }}
+                style={{ backgroundImage: "url(/men3.png)" }}
               ></div>
             </div>
             <span className={styles.signupText}>
-              {isClient ? signupCount.toLocaleString() : signupCount}k people
+              {isClient ? signupCount.toLocaleString() : signupCount} people
               signed up
             </span>
           </div>
