@@ -1,4 +1,6 @@
 import { Pool } from 'pg';
+import { generateReferralCode } from './utils';
+import { APP_SETTINGS } from './constants';
 
 export interface User {
   id: string;
@@ -24,15 +26,6 @@ const pool = new Pool({
   }
 });
 
-export function generateReferralCode(): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let result = '';
-  for (let i = 0; i < 8; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
-}
-
 export async function createUser(email: string, referredBy?: string): Promise<User> {
   const client = await pool.connect();
   
@@ -40,7 +33,7 @@ export async function createUser(email: string, referredBy?: string): Promise<Us
     await client.query('BEGIN');
     
     // Generate unique referral code
-    let referralCode = generateReferralCode();
+    let referralCode = generateReferralCode(APP_SETTINGS.REFERRAL_CODE_LENGTH);
     let isUnique = false;
     
     while (!isUnique) {
@@ -52,16 +45,19 @@ export async function createUser(email: string, referredBy?: string): Promise<Us
       if (checkResult.rows.length === 0) {
         isUnique = true;
       } else {
-        referralCode = generateReferralCode();
+        referralCode = generateReferralCode(APP_SETTINGS.REFERRAL_CODE_LENGTH);
       }
     }
+
+    // Normalize email to lowercase
+    const normalizedEmail = email.toLowerCase().trim();
 
     // Create the user
     const userResult = await client.query(
       `INSERT INTO users (email, referral_code, entries, referred_by) 
        VALUES ($1, $2, $3, $4) 
        RETURNING id, email, referral_code, entries, referred_by, created_at`,
-      [email, referralCode, 1, referredBy]
+      [normalizedEmail, referralCode, APP_SETTINGS.DEFAULT_ENTRIES, referredBy]
     );
 
     const newUser = userResult.rows[0];
@@ -79,8 +75,8 @@ export async function createUser(email: string, referredBy?: string): Promise<Us
 
         // Give bonus entry to referrer
         await client.query(
-          'UPDATE users SET entries = entries + 1 WHERE id = $1',
-          [referrerId]
+          'UPDATE users SET entries = entries + $1 WHERE id = $2',
+          [APP_SETTINGS.REFERRAL_BONUS, referrerId]
         );
 
         // Create referral record
@@ -113,9 +109,12 @@ export async function getUserByEmail(email: string): Promise<User | null> {
   const client = await pool.connect();
   
   try {
+    // Normalize email to lowercase
+    const normalizedEmail = email.toLowerCase().trim();
+    
     const result = await client.query(
-      'SELECT id, email, referral_code, entries, referred_by, created_at FROM users WHERE email = $1',
-      [email]
+      'SELECT id, email, referral_code, entries, referred_by, created_at FROM users WHERE LOWER(email) = LOWER($1)',
+      [normalizedEmail]
     );
 
     if (result.rows.length === 0) {
@@ -135,6 +134,7 @@ export async function getUserByEmail(email: string): Promise<User | null> {
     client.release();
   }
 }
+
 
 export async function getUserByReferralCode(code: string): Promise<User | null> {
   const client = await pool.connect();
