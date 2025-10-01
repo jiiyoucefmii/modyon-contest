@@ -342,14 +342,14 @@ export default function ContestForm() {
                 className={styles.referralInputField}
               />
               <div className={styles.referralHint}>
-                Have a friend's referral code? Enter it above to give them
+                Have a friend&apos;s referral code? Enter it above to give them
                 credit!
               </div>
             </div>
 
             {isCheckingUser && (
               <div className={styles.checkingMessage}>
-                Checking if you're already registered...
+                Checking if you&apos;re already registered...
               </div>
             )}
 
