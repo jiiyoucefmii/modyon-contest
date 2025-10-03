@@ -34,7 +34,7 @@ export default function FAQ() {
             Frequently Asked Questions
           </h2>
           <p className={styles.description}>
-            Got questions? We've got answers! Find everything you need to know about the Modyon giveaway.
+            Got questions? We&apos;ve got answers! Find everything you need to know about the Modyon giveaway.
           </p>
         </div>
         
@@ -66,7 +66,7 @@ export default function FAQ() {
         
         <div className={styles.contactSection}>
           <p className={styles.contactText}>
-            Still have questions? We're here to help!
+            Still have questions? We&apos;re here to help!
           </p>
           <a href="mailto:support@modyon.com" className={styles.contactButton}>
             <svg className={styles.contactIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">

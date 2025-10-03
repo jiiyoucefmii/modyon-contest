@@ -1,8 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
+@theme {
+  /* Custom font family */
+  --font-family-poppins: 'Poppins', sans-serif;
+  --font-family-inter: var(--font-inter);
+
+  /* Custom rotations */
+  --rotate-3: 3deg;
+  --rotate-5: 5deg;
+  --rotate-6: 6deg;
+  --rotate-11: 11deg;
+  --rotate-12: 12deg;
+  --rotate-18: 18deg;
+  --rotate-24: 24deg;
+  --rotate-25: 25deg;
+  --rotate-33: 33deg;
+
+  /* Custom colors */
+  --color-grid-line: rgba(255, 255, 255, 0.1);
+  --color-grid-subtle: rgba(255, 255, 255, 0.05);
+
+  /* Custom animations */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  /* Custom background images */
+  --bg-grid-pattern: 
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  
+  --bg-grid-pattern-subtle:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  
+  --bg-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --bg-gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+
+  /* Custom background sizes */
+  --bg-grid-50: 50px 50px;
+  --bg-grid-30: 30px 30px;
+}
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 248, 250, 252;

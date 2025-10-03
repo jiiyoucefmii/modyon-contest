@@ -50,7 +50,7 @@ export default function Prizes() {
             Amazing Prizes Await
           </h2>
           <p className={styles.description}>
-            We're giving away over $8,500 worth of prizes to celebrate the launch of Modyon platform!
+            We&apos;re giving away over $8,500 worth of prizes to celebrate the launch of Modyon platform!
           </p>
         </div>
         
