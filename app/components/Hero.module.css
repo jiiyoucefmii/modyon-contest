@@ -227,13 +227,13 @@
   
   /* Stack images vertically and make them smaller */
   .hangerImage {
-    position: relative;
     top: auto;
+    /* position: relative;
     left: auto;
     transform: none;
     width: 200px;
     height: 200px;
-    margin: 1rem auto;
+    margin: 1rem auto; */
   }
   
   .hangerImage:hover {
@@ -272,7 +272,7 @@
   }
   
   .hangerImage {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
   }
 }

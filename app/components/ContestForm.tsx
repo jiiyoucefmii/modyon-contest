@@ -11,12 +11,14 @@ interface User {
   referralCode: string;
   entries: number;
   referredBy?: string;
+  userType: 'creator' | 'client';
   createdAt: Date;
 }
 
 export default function ContestForm() {
   const [email, setEmail] = useState("");
   const [referralCode, setReferralCode] = useState("");
+  const [userType, setUserType] = useState<'creator' | 'client'>('client');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -97,6 +99,7 @@ export default function ContestForm() {
         const data = await response.json();
         if (data.success && data.user) {
           setUser(data.user);
+          setUserType(data.user.userType || 'client'); // Set the user type from existing data
           setIsReturningUser(true);
           setIsSubmitted(true);
         }
@@ -169,6 +172,7 @@ export default function ContestForm() {
         body: JSON.stringify({
           email,
           referralCode: referralCode || undefined,
+          userType,
         }),
       });
 
@@ -271,8 +275,8 @@ export default function ContestForm() {
               </h3>
               <p>
                 {isReturningUser
-                  ? `Here are your current stats for ${email}`
-                  : `Thank you for joining! Confirmation sent to ${email}`}
+                  ? `Here are your current stats for ${email} (${user.userType})`
+                  : `Thank you for joining as a ${user.userType}! Confirmation sent to ${email}`}
               </p>
 
               <div className={styles.dashboard}>
@@ -287,11 +291,24 @@ export default function ContestForm() {
                     </div>
                     <div className={styles.statLabel}>Successful Referrals</div>
                   </div>
+                  <div className={styles.statCard}>
+                    <div className={styles.statNumber}>
+                      {user.userType === 'creator' ? '🎨' : '🛍️'}
+                    </div>
+                    <div className={styles.statLabel}>
+                      {user.userType === 'creator' ? 'Creator' : 'Client'}
+                    </div>
+                  </div>
                 </div>
 
                 <div className={styles.referralSection}>
                   <h4>{t.contestForm.referralLink}</h4>
-                  <p>{t.contestForm.shareText}</p>
+                  <p>
+                    {user.userType === 'creator' 
+                      ? 'Share with potential clients and fellow creators!' 
+                      : t.contestForm.shareText
+                    }
+                  </p>
 
                   <div className={styles.referralCode}>
                     <code>{user.referralCode}</code>
@@ -364,13 +381,55 @@ export default function ContestForm() {
           <div className={styles.cardContent}>
             {/* Left Section - Current Form Content */}
             <div className={styles.leftSection}>
-              <div className={styles.comingSoonBadge}>COMING SOON</div>
-
               <h1 className={styles.mainHeading}>
                 Enter Giveaway
               </h1>
 
               <form onSubmit={handleSubmit} className={styles.emailForm}>
+                {/* User Type Selection */}
+                <div className={styles.inputGroup}>
+                  <label className={styles.inputLabel}>I'm joining as a</label>
+                  <div className={styles.userTypeContainer}>
+                    <div className={styles.userTypeOptions}>
+                      <label className={`${styles.userTypeOption} ${userType === 'client' ? styles.selected : ''}`}>
+                        <input
+                          type="radio"
+                          name="userType"
+                          value="client"
+                          checked={userType === 'client'}
+                          onChange={(e) => setUserType(e.target.value as 'creator' | 'client')}
+                          className={styles.userTypeRadio}
+                        />
+                        <div className={styles.userTypeContent}>
+                          <div className={styles.userTypeIcon}>🛍️</div>
+                          <div className={styles.userTypeInfo}>
+                            <span className={styles.userTypeTitle}>Client</span>
+                            <span className={styles.userTypeDesc}>Looking to buy unique products</span>
+                          </div>
+                        </div>
+                      </label>
+                      
+                      <label className={`${styles.userTypeOption} ${userType === 'creator' ? styles.selected : ''}`}>
+                        <input
+                          type="radio"
+                          name="userType"
+                          value="creator"
+                          checked={userType === 'creator'}
+                          onChange={(e) => setUserType(e.target.value as 'creator' | 'client')}
+                          className={styles.userTypeRadio}
+                        />
+                        <div className={styles.userTypeContent}>
+                          <div className={styles.userTypeIcon}>🎨</div>
+                          <div className={styles.userTypeInfo}>
+                            <span className={styles.userTypeTitle}>Creator</span>
+                            <span className={styles.userTypeDesc}>Ready to sell my creations</span>
+                          </div>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
                 <div className={styles.inputGroup}>
                   <label className={styles.inputLabel}>Email</label>
                   <div className={styles.emailInputContainer}>
@@ -403,7 +462,7 @@ export default function ContestForm() {
                   disabled={isLoading || isCheckingUser}
                   className={styles.submitButton}
                 >
-                  {isLoading || isCheckingUser ? "Processing..." : "Sign Up Now"}
+                  {isLoading || isCheckingUser ? "Processing..." : `Sign Up as ${userType === 'creator' ? 'Creator' : 'Client'}`}
                 </button>
 
                 {isCheckingUser && (
@@ -414,7 +473,7 @@ export default function ContestForm() {
 
                 {isReturningUser && user && (
                   <div className={styles.returningUserMessage}>
-                    Welcome back! You have {user.entries} entries. Click submit to
+                    Welcome back! You have {user.entries} entries as a {user.userType}. Click submit to
                     view your stats.
                   </div>
                 )}
@@ -426,32 +485,9 @@ export default function ContestForm() {
             {/* Right Section - Prize Image Only */}
             <div className={styles.rightSection}>
             </div>
-
-            
           </div>
         </div>
       </div>
     </section>
   );
-
-  <div className={styles.signupStats}>
-    <div className={styles.avatarStack}>
-      <div
-        className={styles.avatarItem}
-        style={{ backgroundImage: "url(/men1.png" }}
-      ></div>
-      <div
-        className={styles.avatarItem}
-        style={{ backgroundImage: "url(/men2.png)" }}
-      ></div>
-      <div
-        className={styles.avatarItem}
-        style={{ backgroundImage: "url(/men3.png)" }}
-      ></div>
-    </div>
-    <span className={styles.signupText}>
-      {isClient ? signupCount.toLocaleString() : signupCount} people
-      signed up
-    </span>
-  </div>
 }
