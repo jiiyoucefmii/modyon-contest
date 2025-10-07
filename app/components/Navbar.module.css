@@ -12,6 +12,52 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   padding: 0.5rem 1.5rem;
   max-width: fit-content;
+  transition: all 0.3s ease;
+}
+
+/* When scrolled */
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* When on white sections */
+.navbar.onWhite {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Text colors for different states */
+.navbar .brandName,
+.navbar .navLink {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.navbar.scrolled .brandName,
+.navbar.scrolled .navLink {
+  color: #1f2937;
+}
+
+.navbar.onWhite .brandName,
+.navbar.onWhite .navLink {
+  color: white;
+}
+
+/* Language dropdown styling for different states */
+.navbar .languageButton {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.navbar.scrolled .languageButton {
+  color: #1f2937;
+}
+
+.navbar.onWhite .languageButton {
+  color: white;
 }
 
 .container {
@@ -84,8 +130,8 @@
 }
 
 .ctaButton {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #c7d1ff 0%, #ffffff 100%);
+  color: rgb(0, 0, 0);
   padding: 0.5rem 1.25rem;
   border-radius: 25px;
   font-weight: 600;
@@ -218,4 +264,172 @@
     width: 1.25rem;
     height: 1.25rem;
   }
+}
+
+/* Add these styles to the existing Navbar.module.css file */
+
+/* Language Dropdown Styles */
+.languageDropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.languageButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+}
+
+.languageButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.languageFlag {
+  font-size: 1rem;
+}
+
+.languageCode {
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.dropdownArrow {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.dropdownArrowOpen {
+  transform: rotate(180deg);
+}
+
+.languageDropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  min-width: 150px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.languageOption {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.languageOption:hover {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.languageOptionActive {
+  background: rgba(102, 126, 234, 0.2);
+  font-weight: 600;
+}
+
+.languageName {
+  font-size: 0.875rem;
+}
+
+/* Mobile Language Styles */
+.mobileLanguageSection {
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobileLanguageLabel {
+  display: block;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.mobileLanguageOptions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.mobileLanguageOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+}
+
+.mobileLanguageOption:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.mobileLanguageOptionActive {
+  background: rgba(102, 126, 234, 0.3);
+  border-color: rgba(102, 126, 234, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .languageDropdown {
+    display: none; /* Hide desktop dropdown on mobile */
+  }
+}
+
+@media (min-width: 769px) {
+  .mobileLanguageSection {
+    display: none; /* Hide mobile language section on desktop */
+  }
+}
+
+/* Add RTL support at the end of the existing file */
+
+/* RTL Support */
+.navbar.rtl {
+  direction: rtl;
+}
+
+.navbar.rtl .navContent {
+  flex-direction: row-reverse;
+}
+
+.navbar.rtl .desktopNav {
+  flex-direction: row-reverse;
+}
+
+.navbar.rtl .languageDropdownMenu {
+  left: 0;
+  right: auto;
+}
+
+.navbar.rtl .mobileLanguageOptions {
+  flex-direction: row-reverse;
 }

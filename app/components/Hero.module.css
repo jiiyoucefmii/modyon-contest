@@ -1,7 +1,9 @@
 .hero {
   padding: 5.5rem 0;
   min-height: 100vh;
-  background: transparent;
+  background: #3b82f6 url('/Noise.png');
+  background-size: cover;
+  background-blend-mode: multiply;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,10 +12,15 @@
   overflow: hidden;
 }
 
+
+
+
 .container {
-  max-width: 1200px;
+  margin: 0 2%;
   width: 100%;
-  padding: 0 2rem;
+  padding-right: 60vw;
+  position: relative;
+  z-index: 2;
 }
 
 .content {
@@ -67,7 +74,7 @@
 
 .subtitle {
   font-size: 1.5rem;
-  color: #666;
+  color: #0A1621;
   margin-bottom: 1rem;
   font-weight: 600;
   text-align: center;
@@ -75,7 +82,7 @@
 
 .description {
   font-size: 1.1rem;
-  color: #ffffff;
+  color: #0A1621;
   line-height: 1.6;
   margin-bottom: 2rem;
   text-align: center;
@@ -94,6 +101,48 @@
   justify-content: center;
   align-items: center;
 }
+
+.hangerImage {
+  position: absolute;
+  bottom: 0;
+  top:73%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  z-index: 2;
+  pointer-events: auto;
+  cursor: pointer;
+  animation: breathingGlow 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+.hangerImage:hover {
+  transform: translateX(-50%) scale(1.1);
+}
+
+@keyframes breathingGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 50px rgba(0, 0, 0, 0.5));
+    transform: translateX(-50%) scale(1.05);
+  }
+}
+
+.sofaImage {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  top: 18%;
+  width: 800px;
+  height: 900px;
+  z-index: 1;
+  pointer-events: none;
+}
+
 
 .heroImage {
   width: 100%;
@@ -147,7 +196,7 @@
 }
 
 @media (max-width: 480px) {
-  .titleInitial {
+  .titleInitial { 
     font-size: 3.5rem;
   }
   

@@ -1,11 +1,49 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Navbar.module.css';
+import { useLanguage } from '../lib/LanguageContext';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isOnWhiteSection, setIsOnWhiteSection] = useState(false);
+  const { currentLanguage, setLanguage, t, isRTL } = useLanguage();
+
+  const languages = [
+    { code: 'EN', name: 'English', flag: '🇺🇸' },
+    { code: 'AR', name: 'العربية', flag: '🇸🇦' },
+    { code: 'FR', name: 'Français', flag: '🇫🇷' }
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 50);
+
+      // Check if we're on a white section
+      const heroSection = document.querySelector('#hero');
+      const formSection = document.querySelector('#form');
+      const faqSection = document.querySelector('#faq');
+      
+      const heroHeight = heroSection?.getBoundingClientRect().height || 0;
+      const heroBottom = heroHeight;
+      
+      // If we're past the hero section (which is blue), we're likely on white sections
+      if (scrollPosition > heroBottom - 100) {
+        setIsOnWhiteSection(true);
+      } else {
+        setIsOnWhiteSection(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial state
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
@@ -16,11 +54,16 @@ export default function Navbar() {
         block: 'start',
       });
     }
-    setIsMenuOpen(false); // Close mobile menu after clicking
+    setIsMenuOpen(false);
+  };
+
+  const handleLanguageSelect = (languageCode: string) => {
+    setLanguage(languageCode);
+    setIsLanguageDropdownOpen(false);
   };
 
   return (
-    <nav className={styles.navbar}>
+    <nav className={`${styles.navbar} ${isRTL ? styles.rtl : ''} ${isScrolled ? styles.scrolled : ''} ${isOnWhiteSection ? styles.onWhite : ''}`}>
       <div className={styles.container}>
         <div className={styles.navContent}>
           {/* Logo */}
@@ -35,31 +78,61 @@ export default function Navbar() {
               className={styles.navLink}
               onClick={(e) => handleSmoothScroll(e, 'about')}
             >
-              About
+              {t.navbar.about}
             </a>
             <a 
               href="#form" 
               className={styles.navLink}
               onClick={(e) => handleSmoothScroll(e, 'form')}
             >
-              Contest Form
-            </a>
-            <a 
-              href="#prizes" 
-              className={styles.navLink}
-              onClick={(e) => handleSmoothScroll(e, 'prizes')}
-            >
-              Prizes
+              {t.navbar.contestForm}
             </a>
             <a 
               href="#faq" 
               className={styles.navLink}
               onClick={(e) => handleSmoothScroll(e, 'faq')}
             >
-              FAQ
+              {t.navbar.faq}
             </a>
+            
+            {/* Language Dropdown */}
+            <div className={styles.languageDropdown}>
+              <button 
+                className={styles.languageButton}
+                onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
+              >
+                <span className={styles.languageFlag}>
+                  {languages.find(lang => lang.code === currentLanguage)?.flag}
+                </span>
+                <span className={styles.languageCode}>{currentLanguage}</span>
+                <svg 
+                  className={`${styles.dropdownArrow} ${isLanguageDropdownOpen ? styles.dropdownArrowOpen : ''}`}
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {isLanguageDropdownOpen && (
+                <div className={styles.languageDropdownMenu}>
+                  {languages.map((language) => (
+                    <button
+                      key={language.code}
+                      className={`${styles.languageOption} ${currentLanguage === language.code ? styles.languageOptionActive : ''}`}
+                      onClick={() => handleLanguageSelect(language.code)}
+                    >
+                      <span className={styles.languageFlag}>{language.flag}</span>
+                      <span className={styles.languageName}>{language.name}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            
             <Link href="#form" className={styles.ctaButton}>
-              Join Contest
+              {t.navbar.joinContest}
             </Link>
           </div>
           
@@ -83,35 +156,53 @@ export default function Navbar() {
                 className={styles.mobileNavLink}
                 onClick={(e) => handleSmoothScroll(e, 'about')}
               >
-                About
+                {t.navbar.about}
               </a>
               <a 
                 href="#form" 
                 className={styles.mobileNavLink}
                 onClick={(e) => handleSmoothScroll(e, 'form')}
               >
-                Contest Form
+                {t.navbar.contestForm}
               </a>
               <a 
                 href="#prizes" 
                 className={styles.mobileNavLink}
                 onClick={(e) => handleSmoothScroll(e, 'prizes')}
               >
-                Prizes
+                {t.navbar.prizes}
               </a>
               <a 
                 href="#faq" 
                 className={styles.mobileNavLink}
                 onClick={(e) => handleSmoothScroll(e, 'faq')}
               >
-                FAQ
+                {t.navbar.faq}
               </a>
+              
+              {/* Mobile Language Selector */}
+              <div className={styles.mobileLanguageSection}>
+                <span className={styles.mobileLanguageLabel}>Language:</span>
+                <div className={styles.mobileLanguageOptions}>
+                  {languages.map((language) => (
+                    <button
+                      key={language.code}
+                      className={`${styles.mobileLanguageOption} ${currentLanguage === language.code ? styles.mobileLanguageOptionActive : ''}`}
+                      onClick={() => handleLanguageSelect(language.code)}
+                    >
+                      <span className={styles.languageFlag}>{language.flag}</span>
+                      <span className={styles.languageCode}>{language.code}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
               <a 
                 href="#form" 
                 className={styles.mobileCta}
                 onClick={(e) => handleSmoothScroll(e, 'form')}
               >
-                Join Contest
+                {t.navbar.joinContest}
               </a>
             </div>
           </div>

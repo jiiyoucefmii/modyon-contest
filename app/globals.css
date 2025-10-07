@@ -41,10 +41,24 @@
   --bg-grid-50: 50px 50px;
   --bg-grid-30: 30px 30px;
 }
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 248, 250, 252;
   --background-end-rgb: 226, 232, 240;
+}
+
+/* Arabic font styling */
+[dir="rtl"], 
+[lang="ar"],
+.arabic-text {
+  font-family: var(--font-poppins), 'Poppins', sans-serif !important;
+}
+
+/* Ensure all text elements use Poppins when in Arabic */
+[dir="rtl"] *,
+[lang="ar"] * {
+  font-family: var(--font-poppins), 'Poppins', sans-serif !important;
 }
 
 * {
@@ -59,18 +73,13 @@ body {
   overflow-x: hidden;
   font-family: 'Poppins', sans-serif;
   min-height: 100vh;
-  /* Grid pattern background */
-  background-color: #0a0a0a;
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-  background-size: 50px 50px;
-  background-position: 0 0, 0 0;
+  /* Updated radial gradient background */
+  background: radial-gradient(93.41% 72.15% at -19.91% 106.2%, #1E5B99 3.24%, #3A7ABC 100%);
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  /* Ensure the grid pattern continues */
+  /* Ensure the gradient background continues */
   background: inherit;
 }
 
