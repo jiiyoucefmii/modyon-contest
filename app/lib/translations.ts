@@ -1,4 +1,10 @@
 export interface Translations {
+  meta: {
+    locale: string;
+    direction: "ltr" | "rtl";
+    dateFormat: string;
+  };
+
   navbar: {
     about: string;
     contestForm: string;
@@ -34,6 +40,14 @@ export interface Translations {
     copyLink: string;
     linkCopied: string;
   };
+  howItWorks: {
+    howItWorks: string;
+    step1: string;
+    step2: string;
+    step3: string;
+    eligibility: string;
+    contestType: string;
+  };
   prizes: {
     title: string;
     subtitle: string;
@@ -49,6 +63,11 @@ export interface Translations {
       title: string;
       description: string;
     };
+    creatorBonus: {
+      title: string;
+      description: string;
+      cta: string;
+    };
   };
   faq: {
     title: string;
@@ -62,28 +81,42 @@ export interface Translations {
 
 export const translations: Record<string, Translations> = {
   EN: {
+    meta: {
+      locale: "en-US",
+      direction: "ltr",
+      dateFormat: "MMMM dd, yyyy",
+    },
     navbar: {
       about: "About",
       contestForm: "Contest Form",
       prizes: "Prizes",
       faq: "FAQ",
-      joinContest: "Join Contest"
+      joinContest: "Join Contest",
     },
     intro: {
-      subtitle: "Move your mouse to enter"
+      subtitle: "Move your mouse to enter",
     },
     hero: {
-      title: "Win Amazing Prizes with Modyon",
-      subtitle: "Join the Ultimate Giveaway",
-      description: "Modyon is a creative online marketplace where independent artists, designers, and makers can showcase and sell their unique creations. Similar to Etsy or Redbubble, it connects creators with an interested audience, offering everything from pre-made goods and art prints to personalized accessories and lifestyle products. Whether you're looking to express your creativity or discover one-of-a-kind items, Modyon is the place where originality meets community.",
+      title: "Win 30,000 DZD in Cash Prizes",
+      subtitle: "Join Algeria's First All-in-One Fashion Marketplace",
+      description:
+        "Modyon brings together clothing sellers, buyers, designers, and printers in one platform. Join our pre-launch contest and be part of Algeria's fashion revolution!",
       joinNow: "Join Now",
-      learnMore: "Learn More"
+      learnMore: "Learn More",
+    },
+    howItWorks: {
+      howItWorks: "How to Win",
+      step1: "Sign up with your email",
+      step2: "Share your referral code",
+      step3: "Top referrers win cash prizes",
+      eligibility: "Open to all Algerians",
+      contestType: "Referral-Based Contest",
     },
     contestForm: {
       title: "Enter Giveaway",
       subtitle: "Enter your details and start winning",
       emailLabel: "Email",
-      emailPlaceholder: "jane@example.com",
+      emailPlaceholder: "user@example.com",
       referralLabel: "Referral Code (if available)",
       referralPlaceholder: "Enter your referral code",
       submitButton: "Sign Up Now",
@@ -93,197 +126,286 @@ export const translations: Record<string, Translations> = {
       signupCount: "participants joined",
       entriesEarned: "Contest Entries",
       referralLink: "Share Your Referral Code",
-      shareText: "Join this amazing giveaway! Use my referral link to get started:",
+      shareText:
+        "Join this amazing giveaway! Use my referral link to get started:",
       copyLink: "Copy Code",
-      linkCopied: "Copied!"
+      linkCopied: "Copied!",
     },
     prizes: {
-      title: "Amazing Prizes",
-      subtitle: "What you can win",
+      title: "30,000 DZD Cash Prizes",
+      subtitle: "Top 3 referrers win",
       firstPlace: {
-        title: "1st Place",
-        description: "Premium Prize Package"
+        title: "1st Place - Most Referrals",
+        description: "15,000 DZD Cash Prize",
       },
       secondPlace: {
-        title: "2nd Place", 
-        description: "Exclusive Rewards"
+        title: "2nd Place",
+        description: "10,000 DZD Cash Prize",
       },
       thirdPlace: {
         title: "3rd Place",
-        description: "Special Gift Set"
-      }
+        description: "5,000 DZD Cash Prize",
+      },
+      creatorBonus: {
+        title: "Special Offer for Creators",
+        description: "Sellers, designers & printers: 0% commission for Year 1",
+        cta: "Register as Creator",
+      },
     },
     faq: {
       title: "Frequently Asked Questions",
-      subtitle: "Got questions? We've got answers! Find everything you need to know about the Modyon giveaway.",
+      subtitle:
+        "Got questions? We've got answers! Find everything you need to know about the Modyon giveaway.",
       questions: [
         {
-          question: "How do I enter the Modyon giveaway?",
-          answer: "Simply fill out the contest entry form above with your email address. That's it! you've successfully entered."
+          question: "Who can participate?",
+          answer: "Any Algerian resident can join the contest.",
         },
         {
-          question: "When will the winners be announced?",
-          answer: "Winners will be selected randomly and announced on oct 31st, 2025. We'll notify winners via email and also announce them on our social media channels."
+          question: "How do I win?",
+          answer:
+            "Winners are determined by referral count. The top 3 people who refer the most participants win cash prizes.",
         },
         {
-          question: "Can I enter multiple times?",
-          answer: "No, only one entry per person is allowed. Multiple entries from the same person will be disqualified. However, you can increase your chances by sharing your code with your friends!"
+          question: "What is Modyon?",
+          answer:
+            "Modyon is Algeria's upcoming all-in-one fashion platform connecting clothing sellers, buyers, designers, and printers.",
         },
         {
-          question: "What happens to my email address?",
-          answer: "Your email will only be used for contest communication and occasional updates about Modyon platform. You can unsubscribe at any time, and we never share your information with third parties."
-        }
-      ]
-    }
+          question: "Are there benefits for sellers/designers?",
+          answer:
+            "Yes! Sellers, designers, and printers who join get 0% commission for the entire first year.",
+        },
+        {
+          question: "When does Modyon launch?",
+          answer: "[Add launch date]",
+        },
+        {
+          question: "How will I receive my prize?",
+          answer:
+            "You will get a voucher code via email to redeem your cash prize.",
+        },
+      ],
+    },
   },
+
   AR: {
+    meta: {
+      locale: "ar-DZ",
+      direction: "rtl",
+      dateFormat: "dd MMMM, yyyy",
+    },
     navbar: {
       about: "حول",
       contestForm: "نموذج المسابقة",
       prizes: "الجوائز",
       faq: "الأسئلة الشائعة",
-      joinContest: "انضم للمسابقة"
+      joinContest: "انضم للمسابقة",
     },
     intro: {
-      subtitle: "حرك الماوس للدخول"
+      subtitle: "حرّك الماوس للدخول",
     },
     hero: {
-      title: "اربح جوائز مذهلة مع موديون",
-      subtitle: "انضم إلى السحب النهائي",
-      description: "موديون هو سوق إبداعي عبر الإنترنت حيث يمكن للفنانين والمصممين والصناع المستقلين عرض وبيع إبداعاتهم الفريدة. مثل Etsy أو Redbubble، يربط المبدعين بجمهور مهتم، ويقدم كل شيء من السلع الجاهزة والمطبوعات الفنية إلى الإكسسوارات المخصصة ومنتجات نمط الحياة. سواء كنت تتطلع للتعبير عن إبداعك أو اكتشاف عناصر فريدة من نوعها، موديون هو المكان الذي يلتقي فيه الأصالة مع المجتمع.",
+      title: "اربح 30,000 دج كجوائز نقدية",
+      subtitle: "انضم إلى أول سوق أزياء شامل في الجزائر",
+      description:
+        "موديون يجمع بين البائعين والمشترين والمصممين والطابعين في منصة واحدة. شارك في مسابقة الإطلاق المسبق وكن جزءًا من ثورة الأزياء الجزائرية!",
       joinNow: "انضم الآن",
-      learnMore: "اعرف المزيد"
+      learnMore: "اعرف المزيد",
+    },
+    howItWorks: {
+      howItWorks: "كيفية الفوز",
+      step1: "سجّل باستخدام بريدك الإلكتروني",
+      step2: "شارك رمز الإحالة الخاص بك",
+      step3: "الأشخاص الذين لديهم أكبر عدد من الإحالات يفوزون بجوائز نقدية",
+      eligibility: "المسابقة مفتوحة لجميع الجزائريين",
+      contestType: "مسابقة تعتمد على الإحالات",
     },
     contestForm: {
       title: "ادخل السحب",
-      subtitle: "أدخل بياناتك وابدأ الفوز",
+      subtitle: "أدخل بياناتك وابدأ بالفوز",
       emailLabel: "البريد الإلكتروني",
-      emailPlaceholder: "jane@example.com",
+      emailPlaceholder: "user@example.com",
       referralLabel: "رمز الإحالة (إن وجد)",
       referralPlaceholder: "أدخل رمز الإحالة",
-      submitButton: "سجل الآن",
+      submitButton: "سجّل الآن",
       submitting: "جاري المعالجة...",
-      successMessage: "مرحباً بك في المسابقة!",
-      errorMessage: "فشل في الانضمام للمسابقة. يرجى المحاولة مرة أخرى.",
+      successMessage: "مرحبًا بك في المسابقة!",
+      errorMessage: "فشل في الانضمام للمسابقة. حاول مرة أخرى.",
       signupCount: "مشارك انضم",
       entriesEarned: "مشاركات المسابقة",
       referralLink: "شارك رمز الإحالة الخاص بك",
-      shareText: "انضم إلى هذا السحب المذهل! استخدم رابط الإحالة الخاص بي للبدء:",
+      shareText:
+        "انضم إلى هذه المسابقة المذهلة! استخدم رابط الإحالة الخاص بي للبدء:",
       copyLink: "نسخ الرمز",
-      linkCopied: "تم النسخ!"
+      linkCopied: "تم النسخ!",
     },
     prizes: {
-      title: "جوائز مذهلة",
-      subtitle: "ما يمكنك الفوز به",
+      title: "30,000 دج كجوائز نقدية",
+      subtitle: "الفائزون الثلاثة الأوائل",
       firstPlace: {
-        title: "المركز الأول",
-        description: "حزمة جوائز مميزة"
+        title: "المركز الأول - أكثر إحالات",
+        description: "15,000 دج جائزة نقدية",
       },
       secondPlace: {
         title: "المركز الثاني",
-        description: "مكافآت حصرية"
+        description: "10,000 دج جائزة نقدية",
       },
       thirdPlace: {
         title: "المركز الثالث",
-        description: "مجموعة هدايا خاصة"
-      }
+        description: "5,000 دج جائزة نقدية",
+      },
+      creatorBonus: {
+        title: "عرض خاص للمبدعين",
+        description: "للبائعين والمصممين والطابعين: عمولة 0٪ للسنة الأولى",
+        cta: "سجّل كمبدع",
+      },
     },
     faq: {
       title: "الأسئلة الشائعة",
-      subtitle: "لديك أسئلة؟ لدينا إجابات! اعثر على كل ما تحتاج لمعرفته حول سحب موديون.",
+      subtitle:
+        "عندك أسئلة؟ عندنا الأجوبة! كل ما تحتاج معرفته عن مسابقة موديون هنا.",
       questions: [
         {
-          question: "كيف أدخل سحب موديون؟",
-          answer: "ببساطة املأ نموذج دخول المسابقة أعلاه بعنوان بريدك الإلكتروني. هذا كل شيء! لقد دخلت بنجاح."
+          question: "من يمكنه المشاركة؟",
+          answer: "أي مقيم في الجزائر يمكنه الانضمام إلى المسابقة.",
         },
         {
-          question: "متى سيتم الإعلان عن الفائزين؟",
-          answer: "سيتم اختيار الفائزين عشوائياً والإعلان عنهم في 31 أكتوبر 2025. سنخطر الفائزين عبر البريد الإلكتروني وننشر أيضاً على قنوات التواصل الاجتماعي."
+          question: "كيف أفوز؟",
+          answer:
+            "الفائزون يُحددون حسب عدد الإحالات. الثلاثة الأوائل الذين يحققون أكبر عدد من الإحالات يفوزون بجوائز نقدية.",
         },
         {
-          question: "هل يمكنني الدخول عدة مرات؟",
-          answer: "لا، مسموح بدخول واحد فقط لكل شخص. الدخولات المتعددة من نفس الشخص ستؤدي إلى الاستبعاد. ومع ذلك، يمكنك زيادة فرصك بمشاركة رمزك مع أصدقائك!"
+          question: "ما هو موديون؟",
+          answer:
+            "موديون هو منصة أزياء جزائرية جديدة تجمع البائعين والمشترين والمصممين والطابعين في مكان واحد.",
         },
         {
-          question: "ماذا يحدث لعنوان بريدي الإلكتروني؟",
-          answer: "سيتم استخدام بريدك الإلكتروني فقط للتواصل حول المسابقة والتحديثات العرضية حول منصة موديون. يمكنك إلغاء الاشتراك في أي وقت، ولا نشارك معلوماتك مع أطراف ثالثة أبداً."
-        }
-      ]
-    }
+          question: "هل هناك مزايا للمصممين أو البائعين؟",
+          answer:
+            "نعم! البائعون والمصممون والطابعون يحصلون على عمولة 0٪ طوال السنة الأولى.",
+        },
+        {
+          question: "متى يتم إطلاق موديون؟",
+          answer: "[أضف تاريخ الإطلاق]",
+        },
+        {
+          question: "كيف سأستلم جائزتي؟",
+          answer: "ستتلقى رمز قسيمة عبر البريد الإلكتروني لاستلام الجائزة النقدية.",
+        },
+      ],
+    },
   },
+
   FR: {
+    meta: {
+      locale: "fr-DZ",
+      direction: "ltr",
+      dateFormat: "dd MMMM, yyyy",
+    },
     navbar: {
       about: "À propos",
-      contestForm: "Formulaire de concours",
+      contestForm: "Formulaire du concours",
       prizes: "Prix",
       faq: "FAQ",
-      joinContest: "Rejoindre le concours"
+      joinContest: "Rejoindre le concours",
     },
     intro: {
-      subtitle: "Bougez votre souris pour entrer"
+      subtitle: "Bougez votre souris pour participer",
     },
     hero: {
-      title: "Gagnez des prix incroyables avec Modyon",
-      subtitle: "Rejoignez le tirage au sort ultime",
-      description: "Modyon est une place de marché créative en ligne où les artistes, designers et créateurs indépendants peuvent présenter et vendre leurs créations uniques. Similaire à Etsy ou Redbubble, il connecte les créateurs avec un public intéressé, offrant tout, des produits prêts à l'emploi et impressions d'art aux accessoires personnalisés et produits de style de vie. Que vous cherchiez à exprimer votre créativité ou à découvrir des articles uniques en leur genre, Modyon est l'endroit où l'originalité rencontre la communauté.",
+      title: "Gagnez 30 000 DZD en prix en espèces",
+      subtitle:
+        "Rejoignez le premier marché de la mode tout-en-un en Algérie",
+      description:
+        "Modyon réunit vendeurs de vêtements, acheteurs, designers et imprimeurs sur une seule plateforme. Participez à notre concours de pré-lancement et faites partie de la révolution de la mode en Algérie !",
       joinNow: "Rejoindre maintenant",
-      learnMore: "En savoir plus"
+      learnMore: "En savoir plus",
+    },
+    howItWorks: {
+      howItWorks: "Comment gagner",
+      step1: "Inscrivez-vous avec votre e-mail",
+      step2: "Partagez votre code de parrainage",
+      step3: "Les meilleurs parrains gagnent des prix en argent",
+      eligibility: "Ouvert à tous les Algériens",
+      contestType: "Concours basé sur le parrainage",
     },
     contestForm: {
-      title: "Entrer dans le tirage",
-      subtitle: "Entrez vos détails et commencez à gagner",
+      title: "Participer au tirage",
+      subtitle: "Entrez vos informations et commencez à gagner",
       emailLabel: "E-mail",
-      emailPlaceholder: "jane@example.com",
+      emailPlaceholder: "user@example.com",
       referralLabel: "Code de parrainage (si disponible)",
       referralPlaceholder: "Entrez votre code de parrainage",
       submitButton: "S'inscrire maintenant",
       submitting: "Traitement...",
-      successMessage: "Bienvenue au concours!",
-      errorMessage: "Échec de l'inscription au concours. Veuillez réessayer.",
+      successMessage: "Bienvenue au concours !",
+      errorMessage:
+        "Échec de l'inscription au concours. Veuillez réessayer.",
       signupCount: "participants inscrits",
       entriesEarned: "Participations au concours",
       referralLink: "Partagez votre code de parrainage",
-      shareText: "Rejoignez ce tirage incroyable! Utilisez mon lien de parrainage pour commencer:",
+      shareText:
+        "Rejoignez ce concours incroyable ! Utilisez mon lien de parrainage pour commencer :",
       copyLink: "Copier le code",
-      linkCopied: "Copié!"
+      linkCopied: "Copié !",
     },
     prizes: {
-      title: "Prix incroyables",
-      subtitle: "Ce que vous pouvez gagner",
+      title: "30 000 DZD en prix en espèces",
+      subtitle: "Les 3 meilleurs parrains gagnent",
       firstPlace: {
-        title: "1ère place",
-        description: "Pack de prix premium"
+        title: "1ère place - Plus grand nombre de parrainages",
+        description: "15 000 DZD en espèces",
       },
       secondPlace: {
         title: "2ème place",
-        description: "Récompenses exclusives"
+        description: "10 000 DZD en espèces",
       },
       thirdPlace: {
         title: "3ème place",
-        description: "Ensemble cadeau spécial"
-      }
+        description: "5 000 DZD en espèces",
+      },
+      creatorBonus: {
+        title: "Offre spéciale pour les créateurs",
+        description:
+          "Vendeurs, designers et imprimeurs : 0 % de commission pendant la première année",
+        cta: "S'inscrire en tant que créateur",
+      },
     },
     faq: {
-      title: "Questions fréquemment posées",
-      subtitle: "Vous avez des questions? Nous avons des réponses! Trouvez tout ce que vous devez savoir sur le tirage Modyon.",
+      title: "Questions fréquentes",
+      subtitle:
+        "Des questions ? Nous avons les réponses ! Découvrez tout ce qu'il faut savoir sur le concours Modyon.",
       questions: [
         {
-          question: "Comment entrer dans le tirage Modyon?",
-          answer: "Remplissez simplement le formulaire d'inscription au concours ci-dessus avec votre adresse e-mail. C'est tout! vous êtes inscrit avec succès."
+          question: "Qui peut participer ?",
+          answer: "Tout résident algérien peut rejoindre le concours.",
         },
         {
-          question: "Quand les gagnants seront-ils annoncés?",
-          answer: "Les gagnants seront sélectionnés au hasard et annoncés le 31 octobre 2025. Nous notifierons les gagnants par e-mail et annoncerons également sur nos canaux de médias sociaux."
+          question: "Comment puis-je gagner ?",
+          answer:
+            "Les gagnants sont déterminés par le nombre de parrainages. Les trois premiers remportent des prix en espèces.",
         },
         {
-          question: "Puis-je participer plusieurs fois?",
-          answer: "Non, une seule participation par personne est autorisée. Les participations multiples de la même personne seront disqualifiées. Cependant, vous pouvez augmenter vos chances en partageant votre code avec vos amis!"
+          question: "Qu'est-ce que Modyon ?",
+          answer:
+            "Modyon est la future plateforme algérienne tout-en-un de mode reliant vendeurs, acheteurs, designers et imprimeurs.",
         },
         {
-          question: "Que se passe-t-il avec mon adresse e-mail?",
-          answer: "Votre e-mail ne sera utilisé que pour la communication du concours et les mises à jour occasionnelles sur la plateforme Modyon. Vous pouvez vous désabonner à tout moment, et nous ne partageons jamais vos informations avec des tiers."
-        }
-      ]
-    }
-  }
+          question: "Y a-t-il des avantages pour les créateurs ?",
+          answer:
+            "Oui ! Les vendeurs, designers et imprimeurs bénéficient de 0 % de commission pendant toute la première année.",
+        },
+        {
+          question: "Quand Modyon sera-t-il lancé ?",
+          answer: "[Ajouter la date de lancement]",
+        },
+        {
+          question: "Comment recevrai-je mon prix ?",
+          answer:
+            "Vous recevrez un code de bon par e-mail pour encaisser votre prix en espèces.",
+        },
+      ],
+    },
+  },
 };

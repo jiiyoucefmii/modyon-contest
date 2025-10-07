@@ -8,11 +8,26 @@ import { useLanguage } from '../lib/LanguageContext';
 export default function Hero() {
   const [isAnimated, setIsAnimated] = useState(false);
   const [showContent, setShowContent] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const { t, isRTL } = useLanguage();
 
   useEffect(() => {
+    // Check if mobile on mount
+    const checkMobile = () => {
+      const mobile = window.innerWidth <= 640;
+      setIsMobile(mobile);
+      if (mobile) {
+        // On mobile, show content immediately
+        setIsAnimated(true);
+        setShowContent(true);
+      }
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const handleMouseMove = () => {
-      if (!isAnimated) {
+      if (!isAnimated && !isMobile) {
         setIsAnimated(true);
         setTimeout(() => {
           setShowContent(true);
@@ -20,12 +35,16 @@ export default function Hero() {
       }
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
+    // Only add mousemove listener on desktop
+    if (!isMobile) {
+      document.addEventListener('mousemove', handleMouseMove);
+    }
     
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('resize', checkMobile);
     };
-  }, [isAnimated]);
+  }, [isAnimated, isMobile]);
 
   const scrollToForm = () => {
     const formSection = document.getElementById('form');
