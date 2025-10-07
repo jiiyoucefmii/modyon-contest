@@ -8,6 +8,7 @@ export interface Translations {
   navbar: {
     about: string;
     contestForm: string;
+    howItWorks: string;
     prizes: string;
     faq: string;
     joinContest: string;
@@ -39,6 +40,17 @@ export interface Translations {
     shareText: string;
     copyLink: string;
     linkCopied: string;
+    // New form fields
+    userTypeLabel: string;
+    clientTitle: string;
+    clientDescription: string;
+    creatorTitle: string;
+    creatorDescription: string;
+    checkingMessage: string;
+    returningUserMessage: string;
+    successfulReferrals: string;
+    shareTitle: string;
+    creatorShareText: string;
   };
   howItWorks: {
     howItWorks: string;
@@ -89,6 +101,7 @@ export const translations: Record<string, Translations> = {
     navbar: {
       about: "About",
       contestForm: "Contest Form",
+      howItWorks: "How to Win",
       prizes: "Prizes",
       faq: "FAQ",
       joinContest: "Join Contest",
@@ -100,7 +113,7 @@ export const translations: Record<string, Translations> = {
       title: "Win 30,000 DZD in Cash Prizes",
       subtitle: "Join Algeria's First All-in-One Fashion Marketplace",
       description:
-        "Modyon brings together clothing sellers, buyers, designers, and printers in one platform. Join our pre-launch contest and be part of Algeria's fashion revolution!",
+        "Modyon is a creative marketplace connecting independent artists and designers with those who love unique, handmade, and personalized creations.",
       joinNow: "Join Now",
       learnMore: "Learn More",
     },
@@ -130,21 +143,31 @@ export const translations: Record<string, Translations> = {
         "Join this amazing giveaway! Use my referral link to get started:",
       copyLink: "Copy Code",
       linkCopied: "Copied!",
+      userTypeLabel: "I am a:",
+      clientTitle: "Client",
+      clientDescription: "I want to buy unique fashion items",
+      creatorTitle: "Creator",
+      creatorDescription: "I want to sell my designs or services",
+      checkingMessage: "Checking your information...",
+      returningUserMessage: "Welcome back! You're already registered.",
+      successfulReferrals: "Successful Referrals",
+      shareTitle: "Share & Earn",
+      creatorShareText: "Share your referral code and earn rewards for every new creator you bring to Modyon!",
     },
     prizes: {
       title: "30,000 DZD Cash Prizes",
       subtitle: "Top 3 referrers win",
       firstPlace: {
         title: "1st Place - Most Referrals",
-        description: "15,000 DZD Cash Prize",
+        description: "15,000 DZD",
       },
       secondPlace: {
         title: "2nd Place",
-        description: "10,000 DZD Cash Prize",
+        description: "10,000 DZD",
       },
       thirdPlace: {
         title: "3rd Place",
-        description: "5,000 DZD Cash Prize",
+        description: "5,000 DZD",
       },
       creatorBonus: {
         title: "Special Offer for Creators",
@@ -198,6 +221,7 @@ export const translations: Record<string, Translations> = {
     navbar: {
       about: "حول",
       contestForm: "نموذج المسابقة",
+      howItWorks: "كيفية الفوز",
       prizes: "الجوائز",
       faq: "الأسئلة الشائعة",
       joinContest: "انضم للمسابقة",
@@ -209,7 +233,7 @@ export const translations: Record<string, Translations> = {
       title: "اربح 30,000 دج كجوائز نقدية",
       subtitle: "انضم إلى أول سوق أزياء شامل في الجزائر",
       description:
-        "موديون يجمع بين البائعين والمشترين والمصممين والطابعين في منصة واحدة. شارك في مسابقة الإطلاق المسبق وكن جزءًا من ثورة الأزياء الجزائرية!",
+        "موديون هو سوق إبداعي يربط الفنانين والمصممين المستقلين مع أولئك الذين يحبون الإبداعات الفريدة والمصنوعة يدوياً والمخصصة.",
       joinNow: "انضم الآن",
       learnMore: "اعرف المزيد",
     },
@@ -239,21 +263,31 @@ export const translations: Record<string, Translations> = {
         "انضم إلى هذه المسابقة المذهلة! استخدم رابط الإحالة الخاص بي للبدء:",
       copyLink: "نسخ الرمز",
       linkCopied: "تم النسخ!",
+      userTypeLabel: "أنا:",
+      clientTitle: "عميل",
+      clientDescription: "أريد شراء قطع أزياء فريدة",
+      creatorTitle: "مبدع",
+      creatorDescription: "أريد بيع تصاميمي أو خدماتي",
+      checkingMessage: "جاري التحقق من معلوماتك...",
+      returningUserMessage: "مرحبًا بعودتك! أنت مسجل بالفعل.",
+      successfulReferrals: "الإحالات الناجحة",
+      shareTitle: "شارك واربح",
+      creatorShareText: "شارك رمز الإحالة الخاص بك واربح مكافآت عن كل مبدع جديد تجلبه إلى موديون!",
     },
     prizes: {
       title: "30,000 دج كجوائز نقدية",
       subtitle: "الفائزون الثلاثة الأوائل",
       firstPlace: {
         title: "المركز الأول - أكثر إحالات",
-        description: "15,000 دج جائزة نقدية",
+        description: "15,000 دج ",
       },
       secondPlace: {
         title: "المركز الثاني",
-        description: "10,000 دج جائزة نقدية",
+        description: "10,000 دج ",
       },
       thirdPlace: {
         title: "المركز الثالث",
-        description: "5,000 دج جائزة نقدية",
+        description: "5,000 دج ",
       },
       creatorBonus: {
         title: "عرض خاص للمبدعين",
@@ -287,7 +321,7 @@ export const translations: Record<string, Translations> = {
         },
         {
           question: "متى يتم إطلاق موديون؟",
-          answer: "[أضف تاريخ الإطلاق]",
+          answer: "ل",
         },
         {
           question: "كيف سأستلم جائزتي؟",
@@ -306,6 +340,7 @@ export const translations: Record<string, Translations> = {
     navbar: {
       about: "À propos",
       contestForm: "Formulaire du concours",
+      howItWorks: "Comment gagner",
       prizes: "Prix",
       faq: "FAQ",
       joinContest: "Rejoindre le concours",
@@ -318,7 +353,7 @@ export const translations: Record<string, Translations> = {
       subtitle:
         "Rejoignez le premier marché de la mode tout-en-un en Algérie",
       description:
-        "Modyon réunit vendeurs de vêtements, acheteurs, designers et imprimeurs sur une seule plateforme. Participez à notre concours de pré-lancement et faites partie de la révolution de la mode en Algérie !",
+        "Modyon est un marché créatif qui connecte les artistes et designers indépendants avec ceux qui aiment les créations uniques, faites à la main et personnalisées.",
       joinNow: "Rejoindre maintenant",
       learnMore: "En savoir plus",
     },
@@ -349,21 +384,31 @@ export const translations: Record<string, Translations> = {
         "Rejoignez ce concours incroyable ! Utilisez mon lien de parrainage pour commencer :",
       copyLink: "Copier le code",
       linkCopied: "Copié !",
+      userTypeLabel: "Je suis un :",
+      clientTitle: "Client",
+      clientDescription: "Je veux acheter des articles de mode uniques",
+      creatorTitle: "Créateur",
+      creatorDescription: "Je veux vendre mes créations ou services",
+      checkingMessage: "Vérification de vos informations...",
+      returningUserMessage: "Bon retour ! Vous êtes déjà inscrit.",
+      successfulReferrals: "Parrainages réussis",
+      shareTitle: "Partagez et gagnez",
+      creatorShareText: "Partagez votre code de parrainage et gagnez des récompenses pour chaque nouveau créateur que vous amenez à Modyon !",
     },
     prizes: {
       title: "30 000 DZD en prix en espèces",
       subtitle: "Les 3 meilleurs parrains gagnent",
       firstPlace: {
         title: "1ère place - Plus grand nombre de parrainages",
-        description: "15 000 DZD en espèces",
+        description: "15 000 DZD",
       },
       secondPlace: {
         title: "2ème place",
-        description: "10 000 DZD en espèces",
+        description: "10 000 DZD",
       },
       thirdPlace: {
         title: "3ème place",
-        description: "5 000 DZD en espèces",
+        description: "5 000 DZD",
       },
       creatorBonus: {
         title: "Offre spéciale pour les créateurs",

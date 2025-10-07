@@ -7,6 +7,17 @@ import { useLanguage } from '../lib/LanguageContext';
 export default function Prizes() {
   const { t, isRTL } = useLanguage();
 
+  const handleScrollToForm = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const element = document.getElementById('form');
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
   return (
     <section id="prizes" className={`${styles.prizes} ${isRTL ? styles.rtl : ''}`}>
       <div className={styles.container}>
@@ -41,9 +52,11 @@ export default function Prizes() {
         {/* Creator Bonus Section */}
         <div className={styles.creatorBonus}>
           <div className={styles.bonusContent}>
-            <h3 className={styles.bonusTitle}>{t.prizes.creatorBonus.title}</h3>
+            <div className={styles.bonusText}>
+              <h3 className={styles.bonusTitle}>{t.prizes.creatorBonus.title}</h3>
             <p className={styles.bonusDescription}>{t.prizes.creatorBonus.description}</p>
-            <button className={styles.bonusCta}>
+            </div>
+            <button className={styles.bonusCta} onClick={handleScrollToForm}>
               {t.prizes.creatorBonus.cta}
             </button>
           </div>

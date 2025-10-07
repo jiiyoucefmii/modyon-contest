@@ -68,12 +68,8 @@ export default function Hero() {
               {t.hero.subtitle}
             </p>
             <p className={`${styles.description} ${showContent ? styles.fadeIn : styles.hidden}`}>
-              Modyon is a creative online marketplace where independent artists, designers, and makers 
-              can showcase and sell their unique creations. Similar to Etsy or Redbubble, it connects creators 
-              with an interested audience, offering everything from pre-made goods and art prints to 
-              personalized accessories and lifestyle products. Whether you&apos;re looking to express your 
-              creativity or discover one-of-a-kind items, <strong>Modyon</strong> is the place where originality meets 
-              community.
+              {t.hero.description}
+    
             </p>
           </div>
         </div>

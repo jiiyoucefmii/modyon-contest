@@ -5,6 +5,7 @@ CREATE TABLE users (
   referral_code VARCHAR(20) UNIQUE NOT NULL,
   entries INTEGER DEFAULT 1,
   referred_by VARCHAR(20) DEFAULT NULL,
+  user_type VARCHAR(10) DEFAULT 'client' CHECK (user_type IN ('client', 'creator')),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

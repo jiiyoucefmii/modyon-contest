@@ -98,6 +98,7 @@ export default function ContestForm() {
       if (response.ok) {
         const data = await response.json();
         if (data.success && data.user) {
+          setIsReturningUser(true);
           setUser(data.user);
           setUserType(data.user.userType || 'client'); // Set the user type from existing data
           setIsReturningUser(true);
@@ -164,6 +165,8 @@ export default function ContestForm() {
     setIsLoading(true);
 
     try {
+      console.log('Submitting with userType:', userType); // Debug log
+      
       const response = await fetch("/api/giveaway/register", {
         method: "POST",
         headers: {
@@ -177,12 +180,20 @@ export default function ContestForm() {
       });
 
       const data = await response.json();
+      console.log('Response data:', data); // Debug log
 
       if (!response.ok) {
         throw new Error(data.error || "Registration failed");
       }
 
-      setUser(data.user);
+      // Ensure userType is properly set on the user object
+      const userWithType = {
+        ...data.user,
+        userType: data.user.userType || userType || 'client'
+      };
+      
+      console.log('Setting user with userType:', userWithType); // Debug log
+      setUser(userWithType);
       setIsSubmitted(true);
       setSignupCount((prev) => prev + 1);
     } catch (err) {
@@ -275,8 +286,8 @@ export default function ContestForm() {
               </h3>
               <p>
                 {isReturningUser
-                  ? `Here are your current stats for ${email} (${user.userType})`
-                  : `Thank you for joining as a ${user.userType}! Confirmation sent to ${email}`}
+                  ? `Here are your current stats for ${email} (${user.userType || 'client'})`
+                  : `Thank you for joining as a ${user.userType || userType || 'client'}! Confirmation sent to ${email}`}
               </p>
 
               <div className={styles.dashboard}>
@@ -382,13 +393,13 @@ export default function ContestForm() {
             {/* Left Section - Current Form Content */}
             <div className={styles.leftSection}>
               <h1 className={styles.mainHeading}>
-                Enter Giveaway
+                {t.contestForm.title}
               </h1>
 
               <form onSubmit={handleSubmit} className={styles.emailForm}>
                 {/* User Type Selection */}
                 <div className={styles.inputGroup}>
-                  <label className={styles.inputLabel}>I'm joining as a</label>
+                  <label className={styles.inputLabel}>{t.contestForm.userTypeLabel}</label>
                   <div className={styles.userTypeContainer}>
                     <div className={styles.userTypeOptions}>
                       <label className={`${styles.userTypeOption} ${userType === 'client' ? styles.selected : ''}`}>
@@ -403,8 +414,8 @@ export default function ContestForm() {
                         <div className={styles.userTypeContent}>
                           <div className={styles.userTypeIcon}>🛍️</div>
                           <div className={styles.userTypeInfo}>
-                            <span className={styles.userTypeTitle}>Client</span>
-                            <span className={styles.userTypeDesc}>Looking to buy unique products</span>
+                            <span className={styles.userTypeTitle}>{t.contestForm.clientTitle}</span>
+                            <span className={styles.userTypeDesc}>{t.contestForm.clientDescription}</span>
                           </div>
                         </div>
                       </label>
@@ -421,8 +432,8 @@ export default function ContestForm() {
                         <div className={styles.userTypeContent}>
                           <div className={styles.userTypeIcon}>🎨</div>
                           <div className={styles.userTypeInfo}>
-                            <span className={styles.userTypeTitle}>Creator</span>
-                            <span className={styles.userTypeDesc}>Ready to sell my creations</span>
+                            <span className={styles.userTypeTitle}>{t.contestForm.creatorTitle}</span>
+                            <span className={styles.userTypeDesc}>{t.contestForm.creatorDescription}</span>
                           </div>
                         </div>
                       </label>
@@ -431,13 +442,13 @@ export default function ContestForm() {
                 </div>
 
                 <div className={styles.inputGroup}>
-                  <label className={styles.inputLabel}>Email</label>
+                  <label className={styles.inputLabel}>{t.contestForm.emailLabel}</label>
                   <div className={styles.emailInputContainer}>
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder={placeholder}
+                      placeholder={t.contestForm.emailPlaceholder}
                       required
                       className={styles.emailInputField}
                     />
@@ -445,36 +456,37 @@ export default function ContestForm() {
                 </div>
 
                 <div className={styles.inputGroup}>
-                  <label className={styles.inputLabel}>Referral Code (if available)</label>
+                  <label className={styles.inputLabel}>{t.contestForm.referralLabel}</label>
                   <div className={styles.referralInputContainer}>
                     <input
                       type="text"
                       value={referralCode}
                       onChange={(e) => setReferralCode(e.target.value)}
-                      placeholder="Enter your referral code"
+                      placeholder={t.contestForm.referralPlaceholder}
                       className={styles.referralInputField}
                     />
                   </div>
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={isLoading || isCheckingUser}
-                  className={styles.submitButton}
-                >
-                  {isLoading || isCheckingUser ? "Processing..." : `Sign Up as ${userType === 'creator' ? 'Creator' : 'Client'}`}
-                </button>
+                    <button
+                      type="submit"
+                      disabled={isLoading || isCheckingUser}
+                      className={styles.submitButton}
+                    >
+                      {isLoading || isCheckingUser ? t.contestForm.submitting : `${t.contestForm.submitButton} ${userType === 'creator' ? t.contestForm.creatorTitle : t.contestForm.clientTitle}`}
+                    </button>
 
                 {isCheckingUser && (
                   <div className={styles.checkingMessage}>
-                    Checking if you&apos;re already registered...
+                    {t.contestForm.checkingMessage}
                   </div>
                 )}
 
                 {isReturningUser && user && (
                   <div className={styles.returningUserMessage}>
-                    Welcome back! You have {user.entries} entries as a {user.userType}. Click submit to
-                    view your stats.
+                    {t.contestForm.returningUserMessage
+                      .replace('{entries}', user.entries.toString())
+                      .replace('{userType}', user.userType === 'creator' ? t.contestForm.creatorTitle : t.contestForm.clientTitle)}
                   </div>
                 )}
 

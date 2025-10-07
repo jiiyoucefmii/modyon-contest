@@ -85,11 +85,25 @@ export default function Navbar() {
               {t.navbar.about}
             </a>
             <a 
+              href="#how-it-works" 
+              className={styles.navLink}
+              onClick={(e) => handleSmoothScroll(e, 'how-it-works')}
+            >
+              {t.navbar.howItWorks}
+            </a>
+            <a 
               href="#form" 
               className={styles.navLink}
               onClick={(e) => handleSmoothScroll(e, 'form')}
             >
               {t.navbar.contestForm}
+            </a>
+            <a 
+              href="#prizes" 
+              className={styles.navLink}
+              onClick={(e) => handleSmoothScroll(e, 'prizes')}
+            >
+              {t.navbar.prizes}
             </a>
             <a 
               href="#faq" 
@@ -162,6 +176,20 @@ export default function Navbar() {
                 onClick={(e) => handleSmoothScroll(e, 'about')}
               >
                 {t.navbar.about}
+              </a>
+              <a 
+                href="#how-it-works" 
+                className={styles.mobileNavLink}
+                onClick={(e) => handleSmoothScroll(e, 'how-it-works')}
+              >
+                {t.navbar.howItWorks}
+              </a>
+              <a 
+                href="#prizes" 
+                className={styles.mobileNavLink}
+                onClick={(e) => handleSmoothScroll(e, 'prizes')}
+              >
+                {t.navbar.prizes}
               </a>
               <a 
                 href="#form" 

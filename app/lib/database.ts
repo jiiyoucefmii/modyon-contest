@@ -8,6 +8,7 @@ export interface User {
   referralCode: string;
   entries: number;
   referredBy?: string;
+  userType: 'creator' | 'client';
   createdAt: Date;
 }
 
@@ -26,7 +27,7 @@ const pool = new Pool({
   }
 });
 
-export async function createUser(email: string, referredBy?: string): Promise<User> {
+export async function createUser(email: string, referredBy?: string, userType: 'creator' | 'client' = 'client'): Promise<User> {
   const client = await pool.connect();
   
   try {
@@ -54,10 +55,10 @@ export async function createUser(email: string, referredBy?: string): Promise<Us
 
     // Create the user
     const userResult = await client.query(
-      `INSERT INTO users (email, referral_code, entries, referred_by) 
-       VALUES ($1, $2, $3, $4) 
-       RETURNING id, email, referral_code, entries, referred_by, created_at`,
-      [normalizedEmail, referralCode, APP_SETTINGS.DEFAULT_ENTRIES, referredBy]
+      `INSERT INTO users (email, referral_code, entries, referred_by, user_type) 
+       VALUES ($1, $2, $3, $4, $5) 
+       RETURNING id, email, referral_code, entries, referred_by, user_type, created_at`,
+      [normalizedEmail, referralCode, APP_SETTINGS.DEFAULT_ENTRIES, referredBy, userType]
     );
 
     const newUser = userResult.rows[0];
@@ -95,10 +96,12 @@ export async function createUser(email: string, referredBy?: string): Promise<Us
       referralCode: newUser.referral_code,
       entries: newUser.entries,
       referredBy: newUser.referred_by,
+      userType: newUser.user_type,
       createdAt: new Date(newUser.created_at),
     };
   } catch (error) {
     await client.query('ROLLBACK');
+    console.error('Error creating user:', error);
     throw error;
   } finally {
     client.release();
@@ -109,11 +112,9 @@ export async function getUserByEmail(email: string): Promise<User | null> {
   const client = await pool.connect();
   
   try {
-    // Normalize email to lowercase
     const normalizedEmail = email.toLowerCase().trim();
-    
     const result = await client.query(
-      'SELECT id, email, referral_code, entries, referred_by, created_at FROM users WHERE LOWER(email) = LOWER($1)',
+      'SELECT id, email, referral_code, entries, referred_by, user_type, created_at FROM users WHERE email = $1',
       [normalizedEmail]
     );
 
@@ -128,20 +129,23 @@ export async function getUserByEmail(email: string): Promise<User | null> {
       referralCode: user.referral_code,
       entries: user.entries,
       referredBy: user.referred_by,
+      userType: user.user_type,
       createdAt: new Date(user.created_at),
     };
+  } catch (error) {
+    console.error('Error getting user by email:', error);
+    throw error;
   } finally {
     client.release();
   }
 }
-
 
 export async function getUserByReferralCode(code: string): Promise<User | null> {
   const client = await pool.connect();
   
   try {
     const result = await client.query(
-      'SELECT id, email, referral_code, entries, referred_by, created_at FROM users WHERE referral_code = $1',
+      'SELECT id, email, referral_code, entries, referred_by, user_type, created_at FROM users WHERE referral_code = $1',
       [code]
     );
 
@@ -156,8 +160,12 @@ export async function getUserByReferralCode(code: string): Promise<User | null> 
       referralCode: user.referral_code,
       entries: user.entries,
       referredBy: user.referred_by,
+      userType: user.user_type,
       createdAt: new Date(user.created_at),
     };
+  } catch (error) {
+    console.error('Error getting user by referral code:', error);
+    throw error;
   } finally {
     client.release();
   }
@@ -167,17 +175,20 @@ export async function getStats() {
   const client = await pool.connect();
   
   try {
-    const [usersResult, referralsResult, entriesResult] = await Promise.all([
-      client.query('SELECT COUNT(*) as count FROM users'),
-      client.query('SELECT COUNT(*) as count FROM referrals'),
-      client.query('SELECT SUM(entries) as total FROM users')
-    ]);
+    const result = await client.query(`
+      SELECT 
+        COUNT(*) as total_users,
+        COUNT(CASE WHEN user_type = 'creator' THEN 1 END) as total_creators,
+        COUNT(CASE WHEN user_type = 'client' THEN 1 END) as total_clients,
+        SUM(entries) as total_entries,
+        COUNT(CASE WHEN referred_by IS NOT NULL THEN 1 END) as total_referrals
+      FROM users
+    `);
 
-    return {
-      totalUsers: parseInt(usersResult.rows[0].count),
-      totalReferrals: parseInt(referralsResult.rows[0].count),
-      totalEntries: parseInt(entriesResult.rows[0].total || '0'),
-    };
+    return result.rows[0];
+  } catch (error) {
+    console.error('Error getting stats:', error);
+    throw error;
   } finally {
     client.release();
   }
@@ -188,7 +199,7 @@ export async function getAllUsers(): Promise<User[]> {
   
   try {
     const result = await client.query(
-      'SELECT id, email, referral_code, entries, referred_by, created_at FROM users ORDER BY entries DESC, created_at ASC'
+      'SELECT id, email, referral_code, entries, referred_by, user_type, created_at FROM users ORDER BY created_at DESC'
     );
 
     return result.rows.map(user => ({
@@ -197,8 +208,12 @@ export async function getAllUsers(): Promise<User[]> {
       referralCode: user.referral_code,
       entries: user.entries,
       referredBy: user.referred_by,
+      userType: user.user_type,
       createdAt: new Date(user.created_at),
     }));
+  } catch (error) {
+    console.error('Error getting all users:', error);
+    throw error;
   } finally {
     client.release();
   }

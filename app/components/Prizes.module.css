@@ -1,6 +1,6 @@
 .prizes {
   padding: 80px 20px;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  background:white;
   position: relative;
   overflow: hidden;
 }
@@ -34,9 +34,9 @@
 .title {
   font-size: 3rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #1f1f1f;
   margin-bottom: 20px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #1e293b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -44,7 +44,7 @@
 
 .subtitle {
   font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.8);
   font-weight: 500;
 }
 
@@ -56,8 +56,7 @@
 }
 
 .prizeCard {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(80px);
   border-radius: 20px;
   padding: 40px 30px;
   text-align: center;
@@ -74,7 +73,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
   transition: left 0.5s ease;
 }
 
@@ -111,7 +110,7 @@
 .prizeTitle {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #424242;
   margin-bottom: 15px;
 }
 
@@ -119,36 +118,47 @@
   font-size: 1.8rem;
   font-weight: 800;
   color: #ffd700;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .creatorBonus {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
     background: linear-gradient(135deg, #1e293b 0%, #1969BC 100%);
 
   border-radius: 20px;
-  padding: 40px;
+  padding: 20px 40px;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
 
 .bonusContent {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+  align-items: center;
+
   position: relative;
   z-index: 2;
 }
 
 .bonusTitle {
+  text-align: left;
   font-size: 2rem;
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .bonusDescription {
   font-size: 1.1rem;
   color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 30px;
   line-height: 1.6;
 }
 

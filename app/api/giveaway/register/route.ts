@@ -5,12 +5,20 @@ import { APP_SETTINGS } from '../../../lib/constants';
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, referralCode } = await request.json();
+    const { email, referralCode, userType } = await request.json();
 
     // Basic validation
     if (!email) {
       return NextResponse.json(
         { error: 'Email is required' },
+        { status: 400 }
+      );
+    }
+
+    // Validate userType
+    if (userType && !['creator', 'client'].includes(userType)) {
+      return NextResponse.json(
+        { error: 'Invalid user type. Must be either "creator" or "client"' },
         { status: 400 }
       );
     }
@@ -59,8 +67,8 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Create new user
-    const user = await createUser(email, referralCode);
+    // Create new user with userType (defaults to 'client' if not provided)
+    const user = await createUser(email, referralCode, userType || 'client');
 
     return NextResponse.json({
       success: true,
