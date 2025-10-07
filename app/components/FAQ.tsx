@@ -2,44 +2,26 @@
 
 import { useState } from 'react';
 import styles from './FAQ.module.css';
+import { useLanguage } from '../lib/LanguageContext';
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  const faqs = [
-    {
-      question: "How do I enter the Modyon giveaway?",
-      answer: "Simply fill out the contest entry form above with your email address. That's it! you've successfully entered."
-    },
-    {
-      question: "When will the winners be announced?",
-      answer: "Winners will be selected randomly and announced on oct 31st, 2025. We'll notify winners via email and also announce them on our social media channels."
-    },
-    {
-      question: "Can I enter multiple times?",
-      answer: "No, only one entry per person is allowed. Multiple entries from the same person will be disqualified. However, you can increase your chances by sharing your code with your friends!"
-    },
-    {
-      question: "What happens to my email address?",
-      answer: "Your email will only be used for contest communication and occasional updates about Modyon platform. You can unsubscribe at any time, and we never share your information with third parties."
-    },
-    
-  ];
+  const { t, isRTL } = useLanguage();
 
   return (
-    <section id="faq" className={styles.faqSection}>
+    <section id="faq" className={`${styles.faqSection} ${isRTL ? styles.rtl : ''}`}>
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>
-            Frequently Asked Questions
+            {t.faq.title}
           </h2>
           <p className={styles.description}>
-            Got questions? We&apos;ve got answers! Find everything you need to know about the Modyon giveaway.
+            {t.faq.subtitle}
           </p>
         </div>
         
         <div className={styles.faqContainer}>
-          {faqs.map((faq, index) => (
+          {t.faq.questions.map((faq, index) => (
             <div key={index} className={styles.faqItem}>
               <button
                 className={`${styles.faqButton} ${openIndex === index ? styles.active : ''}`}
@@ -48,32 +30,29 @@ export default function FAQ() {
                 <span className={styles.question}>{faq.question}</span>
                 <svg
                   className={`${styles.chevron} ${openIndex === index ? styles.rotated : ''}`}
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
                   fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <path
+                    d="M5 7.5L10 12.5L15 7.5"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
-              <div className={`${styles.answerContainer} ${openIndex === index ? styles.open : ''}`}>
+              
+              {openIndex === index && (
                 <div className={styles.answer}>
                   <p>{faq.answer}</p>
                 </div>
-              </div>
+              )}
             </div>
           ))}
-        </div>
-        
-        <div className={styles.contactSection}>
-          <p className={styles.contactText}>
-            Still have questions? We&apos;re here to help!
-          </p>
-          <a href="mailto:support@modyon.com" className={styles.contactButton}>
-            <svg className={styles.contactIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            Contact Support
-          </a>
         </div>
       </div>
     </section>
