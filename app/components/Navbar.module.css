@@ -147,126 +147,176 @@
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-/* Mobile Menu Button */
-.mobileMenuButton {
+/* Hamburger Menu Button */
+.hamburgerButton {
   display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
   background: none;
   border: none;
-  color: white;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0.25rem;
   border-radius: 0.25rem;
+  transition: all 0.3s ease;
+  z-index: 60;
 }
 
-.hamburgerIcon {
+.hamburgerLine {
   width: 1.5rem;
-  height: 1.5rem;
+  height: 2px;
+  background-color: white;
+  margin: 2px 0;
+  transition: all 0.3s ease;
+  border-radius: 2px;
 }
 
-/* Mobile Navigation */
-.mobileNav {
-  display: none;
-  position: absolute;
-  top: 100%;
+/* Hamburger animation when open */
+.hamburgerButton.hamburgerOpen .hamburgerLine:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburgerButton.hamburgerOpen .hamburgerLine:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburgerButton.hamburgerOpen .hamburgerLine:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Color changes for different navbar states */
+.navbar.scrolled .hamburgerLine {
+  background-color: #1f2937;
+}
+
+.navbar.onWhite .hamburgerLine {
+  background-color: white;
+}
+
+/* Mobile Menu Overlay */
+.mobileMenuOverlay {
+  position: fixed;
+  top: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.9);
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
   backdrop-filter: blur(20px);
-  border-radius: 1rem;
-  margin-top: 0.5rem;
-  padding: 1rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 55;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
 }
 
-.mobileNav.open {
-  display: block;
+.mobileMenuOverlay.mobileMenuOverlayOpen {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobileMenu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.mobileMenuContent {
+  text-align: center;
+  max-width: 300px;
+  width: 100%;
 }
 
 .mobileNavLink {
   display: block;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9);
   font-weight: 500;
   text-decoration: none;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  transition: all 0.2s ease;
-  margin-bottom: 0.25rem;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .mobileNavLink:hover {
   color: white;
   background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
 }
 
 .mobileCta {
   display: block;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
   font-weight: 600;
   text-decoration: none;
   text-align: center;
-  margin-top: 0.5rem;
-  transition: all 0.2s ease;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .mobileCta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Mobile Language Section */
+.mobileLanguageSection {
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 1rem 0;
+}
+
+.mobileLanguageLabel {
+  display: block;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.mobileLanguageOptions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mobileLanguageOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.mobileLanguageOption:hover {
+  background: rgba(255, 255, 255, 0.2);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .navbar {
-    top: 0.5rem;
-    left: 1rem;
-    right: 1rem;
-    transform: none;
-    max-width: none;
-    padding: 0.5rem 1rem;
-  }
-  
-  .navContent {
-    gap: 1rem;
-  }
-  
-  .desktopNav {
-    display: none;
-  }
-  
-  .mobileMenuButton {
-    display: block;
-  }
-  
-  .brandName {
-    font-size: 0.875rem;
-  }
+.mobileLanguageOptionActive {
+  background: rgba(102, 126, 234, 0.4);
+  border-color: rgba(102, 126, 234, 0.6);
 }
-
-@media (max-width: 480px) {
-  .navbar {
-    top: 0.25rem;
-    left: 0.5rem;
-    right: 0.5rem;
-    padding: 0.5rem;
-  }
-  
-  .navContent {
-    height: 2.5rem;
-  }
-  
-  .brandName {
-    font-size: 0.75rem;
-  }
-  
-  .logoIcon {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-}
-
-/* Add these styles to the existing Navbar.module.css file */
 
 /* Language Dropdown Styles */
 .languageDropdown {
@@ -354,63 +404,83 @@
   font-size: 0.875rem;
 }
 
-/* Mobile Language Styles */
-.mobileLanguageSection {
-  padding: 1rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.mobileLanguageLabel {
-  display: block;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.875rem;
-  margin-bottom: 0.5rem;
-}
-
-.mobileLanguageOptions {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.mobileLanguageOption {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 15px;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.875rem;
-}
-
-.mobileLanguageOption:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.mobileLanguageOptionActive {
-  background: rgba(102, 126, 234, 0.3);
-  border-color: rgba(102, 126, 234, 0.5);
-}
-
-/* Responsive adjustments */
+/* Responsive Design */
 @media (max-width: 768px) {
+  .navbar {
+    top: 0.5rem;
+    left: 1rem;
+    right: 1rem;
+    transform: none;
+    max-width: none;
+    padding: 0.5rem 1rem;
+  }
+  
+  .navContent {
+    gap: 1rem;
+    justify-content: space-between;
+  }
+  
+  .desktopNav {
+    display: none;
+  }
+  
+  .hamburgerButton {
+    display: flex;
+  }
+  
   .languageDropdown {
-    display: none; /* Hide desktop dropdown on mobile */
+    display: none;
+  }
+  
+  .brandName {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    top: 0.25rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    padding: 0.5rem;
+  }
+  
+  .navContent {
+    height: 2.5rem;
+  }
+  
+  .brandName {
+    font-size: 0.75rem;
+  }
+  
+  .logoIcon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  
+  .hamburgerButton {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  
+  .hamburgerLine {
+    width: 1.25rem;
   }
 }
 
 @media (min-width: 769px) {
   .mobileLanguageSection {
-    display: none; /* Hide mobile language section on desktop */
+    display: none;
+  }
+  
+  .hamburgerButton {
+    display: none;
+  }
+  
+  .mobileMenuOverlay {
+    display: none;
   }
 }
-
-/* Add RTL support at the end of the existing file */
 
 /* RTL Support */
 .navbar.rtl {
@@ -432,4 +502,12 @@
 
 .navbar.rtl .mobileLanguageOptions {
   flex-direction: row-reverse;
+}
+
+.navbar.rtl .hamburgerButton.hamburgerOpen .hamburgerLine:nth-child(1) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.navbar.rtl .hamburgerButton.hamburgerOpen .hamburgerLine:nth-child(3) {
+  transform: rotate(45deg) translate(7px, 6px);
 }

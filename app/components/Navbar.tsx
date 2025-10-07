@@ -62,6 +62,10 @@ export default function Navbar() {
     setIsLanguageDropdownOpen(false);
   };
 
+  const toggleMobileMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <nav className={`${styles.navbar} ${isRTL ? styles.rtl : ''} ${isScrolled ? styles.scrolled : ''} ${isOnWhiteSection ? styles.onWhite : ''}`}>
       <div className={styles.container}>
@@ -136,19 +140,20 @@ export default function Navbar() {
             </Link>
           </div>
           
-          {/* Mobile Menu Button */}
+          {/* Mobile Hamburger Menu Button */}
           <button 
-            className={styles.mobileMenuButton}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className={`${styles.hamburgerButton} ${isMenuOpen ? styles.hamburgerOpen : ''}`}
+            onClick={toggleMobileMenu}
+            aria-label="Toggle mobile menu"
           >
-            <svg className={styles.mobileMenuIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <div className={styles.hamburgerLine}></div>
+            <div className={styles.hamburgerLine}></div>
+            <div className={styles.hamburgerLine}></div>
           </button>
         </div>
         
-        {/* Mobile Menu */}
-        {isMenuOpen && (
+        {/* Mobile Menu Overlay */}
+        <div className={`${styles.mobileMenuOverlay} ${isMenuOpen ? styles.mobileMenuOverlayOpen : ''}`}>
           <div className={styles.mobileMenu}>
             <div className={styles.mobileMenuContent}>
               <a 
@@ -164,13 +169,6 @@ export default function Navbar() {
                 onClick={(e) => handleSmoothScroll(e, 'form')}
               >
                 {t.navbar.contestForm}
-              </a>
-              <a 
-                href="#prizes" 
-                className={styles.mobileNavLink}
-                onClick={(e) => handleSmoothScroll(e, 'prizes')}
-              >
-                {t.navbar.prizes}
               </a>
               <a 
                 href="#faq" 
@@ -206,7 +204,7 @@ export default function Navbar() {
               </a>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );
