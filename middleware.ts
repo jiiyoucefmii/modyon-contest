@@ -1,6 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
+  // In production (Netlify), be more permissive with CORS
+  if (process.env.NODE_ENV === 'production') {
+    const response = NextResponse.next();
+    response.headers.set("Access-Control-Allow-Origin", "*");
+    response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    response.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    return response;
+  }
+
+  // Keep strict CORS for development
   const allowedOrigins = [
     "http://localhost:3000",
     process.env.NEXT_PUBLIC_BASE_URL,
