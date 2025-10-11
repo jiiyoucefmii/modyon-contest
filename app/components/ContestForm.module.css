@@ -1527,3 +1527,21 @@
 .rtl .userTypeDesc {
   text-align: right;
 }
+
+/* Force share buttons stacked on mobile */
+@media (max-width: 768px) {
+  .shareButtons {
+    flex-direction: column !important;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+}
+
+/* Also ensure RTL stacks on mobile */
+@media (max-width: 768px) {
+  .rtl .shareButtons {
+    flex-direction: column !important;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+}

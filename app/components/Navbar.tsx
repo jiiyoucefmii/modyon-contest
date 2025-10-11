@@ -67,7 +67,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`${styles.navbar} ${isRTL ? styles.rtl : ''} ${isScrolled ? styles.scrolled : ''} ${isOnWhiteSection ? styles.onWhite : ''}`}>
+    <nav className={`${styles.navbar} ${isRTL ? styles.rtl : ''} ${isScrolled ? styles.scrolled : ''} ${isOnWhiteSection ? styles.onWhite : ''} ${isMenuOpen ? styles.menuOpen : ''}`}>
       <div className={styles.container}>
         <div className={styles.navContent}>
           {/* Logo */}
