@@ -11,8 +11,13 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: 'Modyon Platform Giveaway',
+  title: 'Modyon Giveaway',
   description: 'Join the Modyon platform giveaway and win amazing prizes!',
+  icons: {
+    icon: '/Websiteicon.png',
+    shortcut: '/Websiteicon.png',
+    apple: '/Websiteicon.png',
+  },
 }
 
 export default function RootLayout({

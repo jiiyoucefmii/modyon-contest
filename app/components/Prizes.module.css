@@ -147,6 +147,14 @@
   position: relative;
   z-index: 2;
 }
+@media (max-width: 768px) {
+  .bonusContent {
+    flex-direction: column;
+  }
+  .bonusDescription {
+    margin-bottom: 20px;
+  }
+}
 
 .bonusTitle {
   text-align: left;
@@ -157,6 +165,7 @@
 }
 
 .bonusDescription {
+  text-align: left;
   font-size: 1.1rem;
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;

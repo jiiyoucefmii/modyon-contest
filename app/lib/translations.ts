@@ -201,7 +201,7 @@ export const translations: Record<string, Translations> = {
         },
         {
           question: "When does Modyon launch?",
-          answer: "[Add launch date]",
+          answer: "launch date will be announced after the giveaway inchallah",
         },
         {
           question: "How will I receive my prize?",
@@ -266,13 +266,13 @@ export const translations: Record<string, Translations> = {
       userTypeLabel: "أنا:",
       clientTitle: "عميل",
       clientDescription: "أريد شراء قطع أزياء فريدة",
-      creatorTitle: "مبدع",
+      creatorTitle: "بائع",
       creatorDescription: "أريد بيع تصاميمي أو خدماتي",
       checkingMessage: "جاري التحقق من معلوماتك...",
       returningUserMessage: "مرحبًا بعودتك! أنت مسجل بالفعل.",
       successfulReferrals: "الإحالات الناجحة",
       shareTitle: "شارك واربح",
-      creatorShareText: "شارك رمز الإحالة الخاص بك واربح مكافآت عن كل مبدع جديد تجلبه إلى موديون!",
+      creatorShareText: "شارك رمز الإحالة الخاص بك واربح مكافآت عن كل بائع جديد تجلبه إلى موديون!",
     },
     prizes: {
       title: "30,000 دج كجوائز نقدية",
@@ -290,9 +290,9 @@ export const translations: Record<string, Translations> = {
         description: "5,000 دج ",
       },
       creatorBonus: {
-        title: "عرض خاص للمبدعين",
+        title: "عرض خاص للبائعين",
         description: "للبائعين والمصممين والطابعين: عمولة 0٪ للسنة الأولى",
-        cta: "سجّل كمبدع",
+        cta: "سجّل كبائع",
       },
     },
     faq: {
@@ -321,7 +321,7 @@ export const translations: Record<string, Translations> = {
         },
         {
           question: "متى يتم إطلاق موديون؟",
-          answer: "ل",
+          answer: "سيتم الإعلان عن موهد الاطلاق بعد نهاية المسابقة",
         },
         {
           question: "كيف سأستلم جائزتي؟",
@@ -387,13 +387,13 @@ export const translations: Record<string, Translations> = {
       userTypeLabel: "Je suis un :",
       clientTitle: "Client",
       clientDescription: "Je veux acheter des articles de mode uniques",
-      creatorTitle: "Créateur",
+      creatorTitle: "Vendeur",
       creatorDescription: "Je veux vendre mes créations ou services",
       checkingMessage: "Vérification de vos informations...",
       returningUserMessage: "Bon retour ! Vous êtes déjà inscrit.",
       successfulReferrals: "Parrainages réussis",
       shareTitle: "Partagez et gagnez",
-      creatorShareText: "Partagez votre code de parrainage et gagnez des récompenses pour chaque nouveau créateur que vous amenez à Modyon !",
+      creatorShareText: "Partagez votre code de parrainage et gagnez des récompenses pour chaque nouveau vendeur que vous amenez à Modyon !",
     },
     prizes: {
       title: "30 000 DZD en prix en espèces",
@@ -411,10 +411,10 @@ export const translations: Record<string, Translations> = {
         description: "5 000 DZD",
       },
       creatorBonus: {
-        title: "Offre spéciale pour les créateurs",
+        title: "Offre spéciale pour les vendeurs",
         description:
           "Vendeurs, designers et imprimeurs : 0 % de commission pendant la première année",
-        cta: "S'inscrire en tant que créateur",
+        cta: "S'inscrire en tant que vendeur",
       },
     },
     faq: {
@@ -437,13 +437,13 @@ export const translations: Record<string, Translations> = {
             "Modyon est la future plateforme algérienne tout-en-un de mode reliant vendeurs, acheteurs, designers et imprimeurs.",
         },
         {
-          question: "Y a-t-il des avantages pour les créateurs ?",
+          question: "Y a-t-il des avantages pour les vendeurs ?",
           answer:
             "Oui ! Les vendeurs, designers et imprimeurs bénéficient de 0 % de commission pendant toute la première année.",
         },
         {
           question: "Quand Modyon sera-t-il lancé ?",
-          answer: "[Ajouter la date de lancement]",
+          answer: "la date de lancement sera annoncée après le concours inchallah",
         },
         {
           question: "Comment recevrai-je mon prix ?",

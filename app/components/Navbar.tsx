@@ -158,11 +158,19 @@ export default function Navbar() {
           <button 
             className={`${styles.hamburgerButton} ${isMenuOpen ? styles.hamburgerOpen : ''}`}
             onClick={toggleMobileMenu}
-            aria-label="Toggle mobile menu"
+            aria-label={isMenuOpen ? "Close mobile menu" : "Open mobile menu"}
           >
-            <div className={styles.hamburgerLine}></div>
-            <div className={styles.hamburgerLine}></div>
-            <div className={styles.hamburgerLine}></div>
+            {isMenuOpen ? (
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" stroke="currentColor" style={{ color: isScrolled ? '#1f2937' : 'white' }}>
+                <path d="M6 6 L18 18 M18 6 L6 18" strokeWidth="2" strokeLinecap="round" fill="none" />
+              </svg>
+            ) : (
+              <>
+                <div className={styles.hamburgerLine}></div>
+                <div className={styles.hamburgerLine}></div>
+                <div className={styles.hamburgerLine}></div>
+              </>
+            )}
           </button>
         </div>
         

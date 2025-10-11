@@ -42,7 +42,7 @@
 .leftSection {
   flex: 1;
   width: 50%;
-  height: 650px;
+  height: 100%;
   aspect-ratio: 1;
   padding: 4rem 3rem;
   display: flex;
@@ -53,7 +53,7 @@
 .rightSection {
   flex: 1;
   width: 50%;
-  height: 650px;
+  height: 100%;
   aspect-ratio: 1;
   background: url('/prize.png');
   background-size: cover;
@@ -645,7 +645,8 @@
 @media (max-width: 1024px) {
   .container {
     max-width: 100%;
-    padding: 0 2rem;
+    height: 100%;
+    padding: 0 0.7rem;
   }
   
   .card {
@@ -671,9 +672,9 @@
   .leftSection,
   .rightSection {
     width: 100%;
-    height: 400px;
-    aspect-ratio: 1;
-    padding: 2rem 1.5rem;
+    height: auto;            /* was 400px */
+    aspect-ratio: unset;     /* was 1 (square) */
+    padding: 0;
   }
   
   .rightSection {
@@ -682,6 +683,9 @@
   
   .mainHeading {
     font-size: 2rem;
+  }
+  .emailForm{
+    margin-bottom: 0 !important;
   }
 }
 
@@ -1123,7 +1127,16 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .container {
+    display: flex;
+    justify-content: center;
+  }
+  
   .card {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    box-sizing: border-box;
     padding: 2.5rem 2rem;
   }
   
@@ -1178,10 +1191,27 @@
   .shareButtons {
     flex-direction: column;
   }
+  
+  .successState {
+    padding: 1.25rem;
+  }
+  
+  .statCard {
+    padding: 1rem;
+  }
+  
+  .submitButton {
+    min-height: 48px;
+  }
 }
 
 @media (max-width: 480px) {
   .card {
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    height: 100%;
     padding: 2rem 1.5rem;
   }
   
@@ -1222,10 +1252,54 @@
     width: 18px;
     height: 18px;
   }
+  
+  .referralCode {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .referralCode code {
+    font-size: 1rem;
+    word-break: break-all;
+    white-space: normal;
+  }
+  
+  .statNumber {
+    font-size: 1.75rem;
+  }
+  
+  .statCard {
+    padding: 0.875rem;
+  }
+  
+  .shareTitle {
+    font-size: 0.9375rem;
+  }
+  
+  .shareButton {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .submitButton {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9375rem;
+  }
+  
+  .userTypeOptions {
+    flex-direction: column;
+  }
 }
 
 /* Very small screens */
 @media (max-width: 360px) {
+  .card {
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  
   .emailInputContainer {
     height: 44px;
   }
@@ -1248,6 +1322,24 @@
   .arrowButton svg {
     width: 16px;
     height: 16px;
+  }
+  
+  .shareButton {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .referralSection {
+    padding: 1.25rem;
+  }
+  
+  .referralCode code {
+    font-size: 0.9375rem;
+  }
+  
+  .submitButton {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
   }
 }
 
