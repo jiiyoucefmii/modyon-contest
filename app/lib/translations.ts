@@ -146,13 +146,13 @@ export const translations: Record<string, Translations> = {
       userTypeLabel: "I am a:",
       clientTitle: "Client",
       clientDescription: "I want to buy unique fashion items",
-      creatorTitle: "Creator",
+      creatorTitle: "Seller",
       creatorDescription: "I want to sell my designs or services",
       checkingMessage: "Checking your information...",
       returningUserMessage: "Welcome back! You're already registered.",
       successfulReferrals: "Successful Referrals",
       shareTitle: "Share & Earn",
-      creatorShareText: "Share your referral code and earn rewards for every new creator you bring to Modyon!",
+      creatorShareText: "Share your referral code and earn rewards for every new seller/Buyer you bring to Modyon!",
     },
     prizes: {
       title: "30,000 DZD Cash Prizes",
@@ -170,9 +170,9 @@ export const translations: Record<string, Translations> = {
         description: "5,000 DZD",
       },
       creatorBonus: {
-        title: "Special Offer for Creators",
+        title: "Special Offer for Sellers/Creators",
         description: "Sellers, designers & printers: 0% commission for Year 1",
-        cta: "Register as Creator",
+        cta: "Register as Seller",
       },
     },
     faq: {
@@ -272,7 +272,7 @@ export const translations: Record<string, Translations> = {
       returningUserMessage: "مرحبًا بعودتك! أنت مسجل بالفعل.",
       successfulReferrals: "الإحالات الناجحة",
       shareTitle: "شارك واربح",
-      creatorShareText: "شارك رمز الإحالة الخاص بك واربح مكافآت عن كل بائع جديد تجلبه إلى موديون!",
+      creatorShareText: "شارك رمز الإحالة الخاص بك واربح مكافآت عن كل بائع أو مشتري جديد تجلبه إلى موديون!",
     },
     prizes: {
       title: "30,000 دج كجوائز نقدية",
@@ -393,7 +393,7 @@ export const translations: Record<string, Translations> = {
       returningUserMessage: "Bon retour ! Vous êtes déjà inscrit.",
       successfulReferrals: "Parrainages réussis",
       shareTitle: "Partagez et gagnez",
-      creatorShareText: "Partagez votre code de parrainage et gagnez des récompenses pour chaque nouveau vendeur que vous amenez à Modyon !",
+      creatorShareText: "Partagez votre code de parrainage et gagnez des récompenses pour chaque nouveau vendeur ou acheteur que vous amenez à Modyon !",
     },
     prizes: {
       title: "30 000 DZD en prix en espèces",

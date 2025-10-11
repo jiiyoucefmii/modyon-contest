@@ -401,8 +401,8 @@ export default function ContestForm() {
                 <div className={styles.inputGroup}>
                   <label className={styles.inputLabel}>{t.contestForm.userTypeLabel}</label>
                   <div className={styles.userTypeContainer}>
-                    <div className={styles.userTypeOptions}>
-                      <label className={`${styles.userTypeOption} ${userType === 'client' ? styles.selected : ''}`}>
+                    <div className={styles.userTypeOptions} id="user-type">
+                      <label className={`${styles.userTypeOption} ${userType === 'client' ? styles.selected : ''}`} id="user-type-client">
                         <input
                           type="radio"
                           name="userType"
@@ -420,7 +420,7 @@ export default function ContestForm() {
                         </div>
                       </label>
                       
-                      <label className={`${styles.userTypeOption} ${userType === 'creator' ? styles.selected : ''}`}>
+                      <label className={`${styles.userTypeOption} ${userType === 'creator' ? styles.selected : ''}`} id="user-type-creator">
                         <input
                           type="radio"
                           name="userType"

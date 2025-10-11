@@ -10,12 +10,19 @@ export default function Prizes() {
   const handleScrollToForm = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const element = document.getElementById('form');
+    const url = new URL(window.location.href);
+    url.searchParams.set('userType', 'creator');
+    window.history.replaceState(null, '', url.toString());
+
     if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+
+    // Also programmatically select the creator option once scrolled
+    setTimeout(() => {
+      const creatorLabel = document.getElementById('user-type-creator') as HTMLLabelElement | null;
+      if (creatorLabel) creatorLabel.click();
+    }, 300);
   };
 
   return (
