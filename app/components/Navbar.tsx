@@ -161,7 +161,7 @@ export default function Navbar() {
             aria-label={isMenuOpen ? "Close mobile menu" : "Open mobile menu"}
           >
             {isMenuOpen ? (
-              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" stroke="currentColor" style={{ color: isScrolled ? '#1f2937' : 'white' }}>
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" stroke="currentColor" style={{ color: isScrolled ? '#ffffff' : 'white' }}>
                 <path d="M6 6 L18 18 M18 6 L6 18" strokeWidth="2" strokeLinecap="round" fill="none" />
               </svg>
             ) : (

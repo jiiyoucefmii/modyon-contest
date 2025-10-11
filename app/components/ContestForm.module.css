@@ -14,9 +14,12 @@
 }
 
 .container {
-  max-width: 1200px;
+  max-width: none;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0;
+  justify-content: center;
+  justify-items: center;
+  width: 100vw;
 }
 
 .card {
@@ -27,10 +30,11 @@
   text-align: left;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
-  max-width: 1100px;
-  width: 100%;
+  max-width: none !important;
+  width: 70vw;
   overflow: hidden;
-  margin: 0 auto;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .cardContent {
@@ -644,13 +648,19 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
   .container {
-    max-width: 100%;
+    max-width: none;
     height: 100%;
-    padding: 0 0.7rem;
+    padding: 0;
+    width: 100vw;
+    justify-content: center;
+    justify-items: center;
   }
   
   .card {
-    max-width: 100%;
+    max-width: none !important;
+    width: 98vw;
+    margin: 0;
+    box-sizing: border-box;
   }
   
   .cardContent {
@@ -1130,12 +1140,16 @@
   .container {
     display: flex;
     justify-content: center;
+    width: 100vw;
+    max-width: none;
+    padding: 0;
+    margin: 0 auto;
   }
   
   .card {
-    width: 100%;
-    max-width: 420px;
-    margin: 0 auto;
+    width: 100vw;
+    max-width: none !important;
+    margin: 0;
     box-sizing: border-box;
     padding: 2.5rem 2rem;
   }
@@ -1206,10 +1220,17 @@
 }
 
 @media (max-width: 480px) {
-  .card {
-    width: 100%;
-    max-width: 380px;
+  .container {
+    display: flex;
+    justify-content: center;
+    width: 98vw;
+    max-width: none;
+    padding: 0;
     margin: 0 auto;
+  }
+  .card {
+    width: 95vw;
+    margin: 0;
     box-sizing: border-box;
     height: 100%;
     padding: 2rem 1.5rem;
@@ -1460,4 +1481,49 @@
   .userTypeOption {
     padding: 10px;
   }
+}
+
+/* RTL support for Arabic */
+.rtl {
+  direction: rtl;
+}
+
+/* RTL layout adjustments */
+.rtl .container {
+  max-width: 100%;
+}
+
+.rtl .card {
+  width: 100%;
+  max-width: 100% !important; /* override mobile caps */
+}
+
+.rtl .cardContent,
+.rtl .leftSection,
+.rtl .rightSection {
+  width: 100%;
+}
+
+/* Right-align headings and labels in RTL */
+.rtl .mainHeading,
+.rtl .inputLabel,
+.rtl .shareTitle,
+.rtl .referralHint,
+.rtl .returningUserMessage,
+.rtl .checkingMessage,
+.rtl .errorMessage {
+  text-align: right;
+}
+
+/* Right-align inputs and textareas in RTL */
+.rtl .emailInputField,
+.rtl .referralInputField {
+  text-align: right;
+}
+
+/* User type text alignment */
+.rtl .userTypeInfo,
+.rtl .userTypeTitle,
+.rtl .userTypeDesc {
+  text-align: right;
 }
