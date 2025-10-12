@@ -1,0 +1,119 @@
+.footer {
+  background-color: #0a0a0a;
+  color: #d1d5db;
+  padding: 4rem 1.5rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.brandHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.brandName {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.brandText {
+  font-size: 0.9rem;
+  color: #9ca3af;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.ctaButton {
+  width: 100%;
+  background: #1969bc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: .75rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 1rem;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: #2c63b9;
+  transform: translateY(-1px);
+}
+
+.contactHeading {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.contactList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contactList li {
+  margin-bottom: 0.75rem;
+}
+
+.contactLink {
+  display: flex;
+  align-items: center;
+  color: #9ca3af;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.contactLink:hover {
+  color: #ffffff;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.5rem;
+}
+
+.bottomBar {
+  border-top: 1px solid #1f2937;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .bottomBar {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
