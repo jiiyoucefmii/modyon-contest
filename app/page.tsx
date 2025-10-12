@@ -8,6 +8,7 @@ import FAQ from "./components/FAQ";
 import IntroOverlay from "./components/IntroOverlay";
 import HowItWorks from "./components/HowItWorks";
 import Prizes from "./components/Prizes";
+import Footer from "./components/Footer";
 
 export default function Home() {
   const [showContent, setShowContent] = useState(false);
@@ -31,6 +32,7 @@ export default function Home() {
         <ContestForm />
         <Prizes />
         <FAQ />
+        <Footer/>
       </div>
     </main>
   );
