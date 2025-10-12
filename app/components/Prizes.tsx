@@ -26,7 +26,7 @@ export default function Prizes() {
   };
 
   return (
-    <section id="prizes" className={`${styles.prizes} ${isRTL ? styles.rtl : ''}`}>
+    <section id="prizes" className={`${styles.prizes}`}>
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>{t.prizes.title}</h2>

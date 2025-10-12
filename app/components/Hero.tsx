@@ -1,50 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
 import styles from './Hero.module.css';
 import { useLanguage } from '../lib/LanguageContext';
 
 export default function Hero() {
-  const [isAnimated, setIsAnimated] = useState(false);
-  const [showContent, setShowContent] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const { t, isRTL } = useLanguage();
-
-  useEffect(() => {
-    // Check if mobile on mount
-    const checkMobile = () => {
-      const mobile = window.innerWidth <= 640;
-      setIsMobile(mobile);
-      if (mobile) {
-        // On mobile, show content immediately
-        setIsAnimated(true);
-        setShowContent(true);
-      }
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-
-    const handleMouseMove = () => {
-      if (!isAnimated && !isMobile) {
-        setIsAnimated(true);
-        setTimeout(() => {
-          setShowContent(true);
-        }, 800); // Delay to show content after title animation
-      }
-    };
-
-    // Only add mousemove listener on desktop
-    if (!isMobile) {
-      document.addEventListener('mousemove', handleMouseMove);
-    }
-    
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('resize', checkMobile);
-    };
-  }, [isAnimated, isMobile]);
 
   const scrollToForm = () => {
     const formSection = document.getElementById('form');
@@ -59,17 +20,16 @@ export default function Hero() {
   return (
     <section id="about" className={`${styles.hero} ${isRTL ? styles.rtl : ''}`}>
       <div className={styles.container}>
-        <div className={`${styles.content} ${isAnimated ? styles.contentAnimated : ''}`}>
+        <div className={styles.content}>
           <div className={styles.textSection}>
-            <h1 className={`${styles.title} ${isAnimated ? styles.titleAnimated : styles.titleInitial}`}>
+            <h1 className={styles.title}>
               {t.hero.title}
             </h1>
-            <p className={`${styles.subtitle} ${showContent ? styles.fadeIn : styles.hidden}`}>
+            <p className={styles.subtitle}>
               {t.hero.subtitle}
             </p>
-            <p className={`${styles.description} ${showContent ? styles.fadeIn : styles.hidden}`}>
+            <p className={styles.description}>
               {t.hero.description}
-    
             </p>
           </div>
         </div>

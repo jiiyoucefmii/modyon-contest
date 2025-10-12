@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createUser, getUserByEmail, getUserByReferralCode } from '../../../lib/database';
+import { createUser, getUserByEmail, getUserByReferralCode,updateUser } from '../../../lib/database';
 import { isValidEmail } from '../../../lib/utils';
 import { APP_SETTINGS } from '../../../lib/constants';
+import { generateVerificationToken, sendVerificationEmail } from '../../../lib/sendMail';
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,7 +16,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate userType
     if (userType && !['creator', 'client'].includes(userType)) {
       return NextResponse.json(
         { error: 'Invalid user type. Must be either "creator" or "client"' },
@@ -23,7 +23,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check email format and against temporary email domains
     if (!isValidEmail(email)) {
       return NextResponse.json(
         { error: 'Invalid email or temporary email addresses are not allowed' },
@@ -31,7 +30,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if email length is within limits
     if (email.length > APP_SETTINGS.MAX_EMAIL_LENGTH || email.length < APP_SETTINGS.MIN_EMAIL_LENGTH) {
       return NextResponse.json(
         { error: `Email must be between ${APP_SETTINGS.MIN_EMAIL_LENGTH} and ${APP_SETTINGS.MAX_EMAIL_LENGTH} characters` },
@@ -42,10 +40,35 @@ export async function POST(request: NextRequest) {
     // Check if user already exists
     const existingUser = await getUserByEmail(email);
     if (existingUser) {
-      return NextResponse.json(
-        { error: 'Email already registered' },
-        { status: 400 }
-      );
+      if (existingUser.emailVerified) {
+        return NextResponse.json(
+          { error: 'Email already registered and verified' },
+          { status: 400 }
+        );
+      } else {
+        // Resend verification email for unverified user
+        const newToken = generateVerificationToken();
+        const tokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+        
+        await updateUser(email, {
+          verificationToken: newToken,
+          verificationTokenExpiry: tokenExpiry
+        });
+        
+        const emailSent = await sendVerificationEmail(email, newToken);
+        
+        if (!emailSent) {
+          return NextResponse.json(
+            { error: 'Failed to send verification email. Please try again.' },
+            { status: 500 }
+          );
+        }
+        
+        return NextResponse.json({
+          success: true,
+          message: 'Verification email resent. Please check your email to complete registration.',
+        });
+      }
     }
 
     // Validate referral code if provided
@@ -58,7 +81,14 @@ export async function POST(request: NextRequest) {
         );
       }
       
-      // Prevent self-referrals by email matching
+      // Only allow referrals from verified users
+      if (!referrer.emailVerified) {
+        return NextResponse.json(
+          { error: 'Referrer must have verified email' },
+          { status: 400 }
+        );
+      }
+      
       if (referrer.email.toLowerCase() === email.toLowerCase()) {
         return NextResponse.json(
           { error: 'You cannot use your own referral code' },
@@ -67,13 +97,34 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Create new user with userType (defaults to 'client' if not provided)
-    const user = await createUser(email, referralCode, userType || 'client');
+    // Generate verification token
+    const verificationToken = generateVerificationToken();
+    const tokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+
+    // Create new user (unverified)
+    const user = await createUser(
+      email, 
+      referralCode, 
+      userType || 'client',
+      verificationToken,
+      tokenExpiry
+    );
+
+    // Send verification email
+    const emailSent = await sendVerificationEmail(email, verificationToken);
+    
+    if (!emailSent) {
+      // If email fails, you might want to delete the user or mark for retry
+      return NextResponse.json(
+        { error: 'Failed to send verification email. Please try again.' },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({
       success: true,
-      user,
-      message: 'Successfully registered for the giveaway!',
+      message: 'Registration successful! Please check your email to verify your address before you can participate.',
+      referralCode: user.referralCode
     });
   } catch (error) {
     console.error('Registration error:', error);
