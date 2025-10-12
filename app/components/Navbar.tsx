@@ -25,8 +25,6 @@ export default function Navbar() {
 
       // Check if we're on a white section
       const heroSection = document.querySelector('#hero');
-      const formSection = document.querySelector('#form');
-      const faqSection = document.querySelector('#faq');
       
       const heroHeight = heroSection?.getBoundingClientRect().height || 0;
       const heroBottom = heroHeight;
