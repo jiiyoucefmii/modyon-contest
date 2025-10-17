@@ -25,56 +25,16 @@ export default function ContestForm() {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
-  const [signupCount, setSignupCount] = useState(0);
-  const [placeholder, setPlaceholder] = useState("jane@example.com");
   const [isReturningUser, setIsReturningUser] = useState(false);
   const [isCheckingUser, setIsCheckingUser] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const { t, isRTL } = useLanguage();
 
-  // Fix hydration mismatch by ensuring client-side rendering
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  useEffect(() => {
-    // Fetch initial signup count from server
-    const fetchSignupCount = async () => {
-      try {
-        const response = await fetch("/api/giveaway/admin/stats");
-        if (response.ok) {
-          const data = await response.json();
-          setSignupCount(data.totalUsers || 0);
-        }
-      } catch (err) {
-        console.error("Error fetching signup count:", err);
-      }
-    };
-    fetchSignupCount();
-  }, []);
-
-  // Update placeholder based on screen size
-  useEffect(() => {
-    const updatePlaceholder = () => {
-      if (window.innerWidth <= 360) {
-        setPlaceholder("email@domain.com");
-      } else if (window.innerWidth <= 480) {
-        setPlaceholder("your@email.com");
-      } else if (window.innerWidth <= 768) {
-        setPlaceholder("jane@example.com");
-      } else {
-        setPlaceholder("jane@example.com");
-      }
-    };
-
-    updatePlaceholder();
-    window.addEventListener("resize", updatePlaceholder);
-
-    return () => window.removeEventListener("resize", updatePlaceholder);
-  }, []);
-
-  // Check for referral code in URL on component mount
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const refCode = urlParams.get("ref");
@@ -165,7 +125,6 @@ export default function ContestForm() {
     setIsLoading(true);
 
     try {
-      console.log('Submitting with userType:', userType); // Debug log
       
       const response = await fetch("/api/giveaway/register", {
         method: "POST",
@@ -180,7 +139,6 @@ export default function ContestForm() {
       });
 
       const data = await response.json();
-      console.log('Response data:', data); // Debug log
 
       if (!response.ok) {
         throw new Error(data.error || "Registration failed");
@@ -192,10 +150,9 @@ export default function ContestForm() {
         userType: data.user.userType || userType || 'client'
       };
       
-      console.log('Setting user with userType:', userWithType); // Debug log
       setUser(userWithType);
       setIsSubmitted(true);
-      setSignupCount((prev) => prev + 1);
+      // setSignupCount((prev) => prev + 1);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {

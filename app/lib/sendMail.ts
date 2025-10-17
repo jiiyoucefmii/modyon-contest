@@ -17,7 +17,8 @@ const createGmailTransporter = () => {
 };
 
 export async function sendVerificationEmail(email: string, token: string): Promise<boolean> {
-  const verificationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/verify?token=${token}&email=${encodeURIComponent(email)}`;
+  // Point to the verify page which will call the API and show user-friendly status
+  const verificationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/verify?token=${token}&email=${encodeURIComponent(email)}`;
   
   const transporter = createGmailTransporter();
 
@@ -47,13 +48,13 @@ export async function sendVerificationEmail(email: string, token: string): Promi
                       color: white; 
                       padding: 15px 30px; 
                       text-decoration: none; 
-                      border-radius: 8px; 
+                      border-radius: 6px; 
                       display: inline-block; 
                       font-weight: 600;
                       font-size: 16px;
                       box-shadow: 0 4px 15px rgba(0,123,255,0.3);
                       transition: all 0.3s ease;">
-              ✅ Verify Email Address
+              Verify Email Address
             </a>
           </div>
           
@@ -95,10 +96,8 @@ export async function sendVerificationEmail(email: string, token: string): Promi
 
   try {
     const info = await transporter.sendMail(mailOptions);
-    console.log('Verification email sent successfully:', info.messageId);
     return true;
   } catch (error) {
-    console.error('Failed to send verification email:', error);
     return false;
   }
 }
@@ -162,7 +161,6 @@ export async function sendWelcomeEmail(email: string, referralCode: string): Pro
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log('Welcome email sent successfully');
     return true;
   } catch (error) {
     console.error('Failed to send welcome email:', error);

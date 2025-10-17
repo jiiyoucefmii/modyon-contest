@@ -124,7 +124,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'Registration successful! Please check your email to verify your address before you can participate.',
-      referralCode: user.referralCode
+      referralCode: user.referralCode,
+      // Include the user so the client can access userType and other fields immediately
+      user: {
+        id: user.id,
+        email: user.email,
+        referralCode: user.referralCode,
+        entries: user.entries,
+        referredBy: user.referredBy,
+        userType: user.userType,
+        createdAt: user.createdAt,
+      },
     });
   } catch (error) {
     console.error('Registration error:', error);

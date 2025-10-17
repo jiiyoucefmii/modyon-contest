@@ -207,8 +207,9 @@ export async function getAllUsers(): Promise<User[]> {
   const client = await pool.connect();
 
   try {
+    // Only return verified users to prevent unverified fake emails from appearing in stats/admin
     const result = await client.query(
-      "SELECT id, email, referral_code, entries, referred_by, user_type, created_at FROM users ORDER BY created_at DESC"
+      "SELECT id, email, referral_code, entries, referred_by, user_type, email_verified, created_at FROM users WHERE email_verified = true ORDER BY created_at DESC"
     );
 
     return result.rows.map((user) => ({
@@ -241,24 +242,35 @@ export async function updateUser(
 
   try {
     const normalizedEmail = email.toLowerCase().trim();
-    const fields = [];
-    const values = [];
+
+    const setClauses: string[] = [];
+    const values: any[] = [];
     let index = 1;
 
-    for (const [key, value] of Object.entries(updates)) {
-      fields.push(`${key} = $${index}`);
-      values.push(value);
-      index++;
+    // Map camelCase -> snake_case
+    if ('emailVerified' in updates) {
+      setClauses.push(`email_verified = $${index++}`);
+      values.push(updates.emailVerified ?? false);
+    }
+    if ('verificationToken' in updates) {
+      setClauses.push(`verification_token = $${index++}`);
+      values.push(updates.verificationToken ?? null); // set NULL when undefined
+    }
+    if ('verificationTokenExpiry' in updates) {
+      setClauses.push(`verification_token_expiry = $${index++}`);
+      values.push(updates.verificationTokenExpiry ?? null); // set NULL when undefined
+    }
+    if ('entries' in updates) {
+      setClauses.push(`entries = $${index++}`);
+      values.push(updates.entries ?? null);
     }
 
-    if (fields.length === 0) {
-      return; // Nothing to update
+    if (setClauses.length === 0) {
+      return; // nothing to update
     }
 
+    const query = `UPDATE users SET ${setClauses.join(', ')} WHERE email = $${index}`;
     values.push(normalizedEmail);
-    const query = `UPDATE users SET ${fields.join(
-      ", "
-    )} WHERE email = $${index}`;
 
     await client.query(query, values);
   } catch (error) {
