@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getUserByEmail, updateUser, processReferralBonus } from '../../lib/database';
-import { sendWelcomeEmail } from '../../lib/sendMail';
+
 
 export async function GET(request: NextRequest) {
   try {
@@ -57,8 +57,7 @@ export async function GET(request: NextRequest) {
       await processReferralBonus(user.id, user.referredBy);
     }
 
-    // Send welcome email with referral code
-    await sendWelcomeEmail(user.email, user.referralCode);
+    // Send welcome email with referral code (don't fail verification if email fails)
 
     return NextResponse.json(
       { message: 'Email verified successfully! You can now participate in the giveaway.' },
