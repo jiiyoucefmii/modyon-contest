@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import styles from "./verify.module.css";
 type VerifyState = "idle" | "verifying" | "success" | "error";
@@ -42,7 +42,7 @@ function StatusIcon({ state }: { state: VerifyState }) {
   return null;
 }
 
-export default function VerifyPage() {
+function VerifyContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [state, setState] = useState<VerifyState>("idle");
@@ -162,5 +162,51 @@ export default function VerifyPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+function LoadingFallback() {
+  return (
+    <main className={`${styles.background}`} style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}>
+      <div style={{
+        width: "100%",
+        maxWidth: 420,
+        background: brand.card,
+        borderRadius: 18,
+        padding: "2.5rem 2rem 2rem 2rem",
+        boxShadow: brand.shadow,
+        border: `1.5px solid ${brand.border}`,
+        position: "relative",
+        textAlign: "center"
+      }}>
+        <div style={{ marginBottom: 24 }}>
+          <StatusIcon state="verifying" />
+        </div>
+        <h1 style={{
+          margin: 0,
+          fontSize: 26,
+          fontWeight: 700,
+          color: brand.primary,
+          letterSpacing: "-0.5px"
+        }}>
+          Loading...
+        </h1>
+        <p style={{
+          margin: "1.2rem 0 0.5rem 0",
+          color: "#444",
+          fontSize: 17,
+          fontWeight: 500,
+          minHeight: 24
+        }}>Please wait while we prepare your verification...</p>
+      </div>
+    </main>
+  );
+}
+
+export default function VerifyPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <VerifyContent />
+    </Suspense>
   );
 }

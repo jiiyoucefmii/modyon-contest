@@ -244,7 +244,7 @@ export async function updateUser(
     const normalizedEmail = email.toLowerCase().trim();
 
     const setClauses: string[] = [];
-    const values: any[] = [];
+    const values: (string | number | boolean | Date | undefined)[] = [];
     let index = 1;
 
     // Map camelCase -> snake_case
@@ -254,15 +254,15 @@ export async function updateUser(
     }
     if ('verificationToken' in updates) {
       setClauses.push(`verification_token = $${index++}`);
-      values.push(updates.verificationToken ?? null); // set NULL when undefined
+      values.push(updates.verificationToken ?? undefined); // set undefined when undefined
     }
     if ('verificationTokenExpiry' in updates) {
       setClauses.push(`verification_token_expiry = $${index++}`);
-      values.push(updates.verificationTokenExpiry ?? null); // set NULL when undefined
+      values.push(updates.verificationTokenExpiry ?? undefined); // set undefined when undefined
     }
     if ('entries' in updates) {
       setClauses.push(`entries = $${index++}`);
-      values.push(updates.entries ?? null);
+      values.push(updates.entries ?? undefined); // set undefined when undefined
     }
 
     if (setClauses.length === 0) {

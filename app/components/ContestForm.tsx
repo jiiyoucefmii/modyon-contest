@@ -106,12 +106,12 @@ export default function ContestForm() {
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      const currentRef = sectionRef.current;
       if (currentRef) {
         observer.unobserve(currentRef);
       }
@@ -190,7 +190,7 @@ export default function ContestForm() {
     const text = `${t.contestForm.shareText}`;
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(referralLink)}&quote=${encodeURIComponent(text)}`;
     window.open(facebookUrl, "_blank");
-  }, [user, copyReferralLink]);
+  }, [user, copyReferralLink, t.contestForm.shareText]);
 
   const shareOnWhatsApp = useCallback(() => {
     if (!user) return;
@@ -199,7 +199,7 @@ export default function ContestForm() {
     const text = `${t.contestForm.shareText} ${referralLink}`;
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
     window.open(whatsappUrl, "_blank");
-  }, [user, copyReferralLink, t]);
+  }, [user, copyReferralLink]);
 
   const shareOnInstagram = useCallback(() => {
     if (!user) return;
