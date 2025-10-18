@@ -5,14 +5,25 @@ export function generateVerificationToken(): string {
   return crypto.randomBytes(32).toString('hex');
 }
 
-// Create Gmail transporter
+// Create Gmail transporter with fallback configuration
 const createGmailTransporter = () => {
+  // Check if environment variables are set
+  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+    console.error('Gmail credentials not found in environment variables');
+    throw new Error('Email configuration missing');
+  }
+
   return nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: process.env.GMAIL_USER,
       pass: process.env.GMAIL_APP_PASSWORD, 
     },
+    // Add additional configuration for better reliability
+    pool: true,
+    maxConnections: 1,
+    rateDelta: 20000,
+    rateLimit: 5,
   });
 };
 
@@ -96,8 +107,10 @@ export async function sendVerificationEmail(email: string, token: string): Promi
 
   try {
     const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent successfully:', info.messageId);
     return true;
   } catch (error) {
+    console.error('Failed to send verification email:', error);
     return false;
   }
 }

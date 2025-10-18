@@ -436,7 +436,91 @@
   font-weight: 500;
 }
 
-/* Success State Styles - Updated with black text */
+/* Email Verification Styles */
+.emailVerificationState {
+  text-align: center;
+  padding: 3rem 2rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.emailIcon {
+  width: 80px;
+  height: 80px;
+  background: #3b82f6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  color: white;
+}
+
+.emailVerificationState h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.emailVerificationState p {
+  font-size: 1rem;
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.emailSentTo {
+  background: #f3f4f6;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.verificationActions {
+  margin-bottom: 2rem;
+}
+
+.resendButton {
+  background: #6b7280;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.resendButton:hover:not(:disabled) {
+  background: #4b5563;
+}
+
+.resendButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.verificationMessage {
+  background: #d1fae5;
+  color: #065f46;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.verificationNote {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.verificationNote p {
+  margin: 0;
+} 
 .successState {
   text-align: center;
   padding: 2rem;

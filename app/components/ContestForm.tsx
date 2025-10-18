@@ -13,6 +13,7 @@ interface User {
   referredBy?: string;
   userType: 'creator' | 'client';
   createdAt: Date;
+  emailVerified?: boolean;
 }
 
 export default function ContestForm() {
@@ -27,13 +28,10 @@ export default function ContestForm() {
   const [copied, setCopied] = useState(false);
   const [isReturningUser, setIsReturningUser] = useState(false);
   const [isCheckingUser, setIsCheckingUser] = useState(false);
-  const [isClient, setIsClient] = useState(false);
+  const [showEmailVerification, setShowEmailVerification] = useState(false);
+  const [verificationMessage, setVerificationMessage] = useState("");
   const sectionRef = useRef<HTMLElement>(null);
   const { t, isRTL } = useLanguage();
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -60,9 +58,16 @@ export default function ContestForm() {
         if (data.success && data.user) {
           setIsReturningUser(true);
           setUser(data.user);
-          setUserType(data.user.userType || 'client'); // Set the user type from existing data
-          setIsReturningUser(true);
-          setIsSubmitted(true);
+          setUserType(data.user.userType || 'client');
+          
+          // Only show success screen if email is verified
+          if (data.user.emailVerified) {
+            setIsSubmitted(true);
+          } else {
+            // Show email verification screen for unverified returning users
+            setShowEmailVerification(true);
+            setVerificationMessage("Please verify your email to access your referrals.");
+          }
         }
       } else {
         setIsReturningUser(false);
@@ -144,15 +149,19 @@ export default function ContestForm() {
         throw new Error(data.error || "Registration failed");
       }
 
-      // Ensure userType is properly set on the user object
-      const userWithType = {
-        ...data.user,
-        userType: data.user.userType || userType || 'client'
-      };
+      // Show email verification screen instead of success screen
+      setShowEmailVerification(true);
+      setVerificationMessage(data.message || "Please check your email to verify your address.");
       
-      setUser(userWithType);
-      setIsSubmitted(true);
-      // setSignupCount((prev) => prev + 1);
+      // Store user data for later use after verification
+      if (data.user) {
+        const userWithType = {
+          ...data.user,
+          userType: data.user.userType || userType || 'client'
+        };
+        setUser(userWithType);
+      }
+      
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
@@ -205,16 +214,133 @@ export default function ContestForm() {
     window.open(messengerUrl, "_blank");
   }, [user, copyReferralLink, t]);
 
-  const shareOnTwitter = () => {
-    if (!user) return;
+  const resendVerificationEmail = async () => {
+    if (!email) return;
+    
+    setIsLoading(true);
+    setError("");
+    
+    try {
+      const response = await fetch("/api/giveaway/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          referralCode: referralCode || undefined,
+          userType,
+        }),
+      });
 
-    const referralLink = `${window.location.origin}${window.location.pathname}?ref=${user.referralCode}`;
-    const text = `Join this amazing giveaway! Use my referral link to get started: ${referralLink}`;
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-      text
-    )}`;
-    window.open(twitterUrl, "_blank");
+      const data = await response.json();
+
+      if (response.ok) {
+        setVerificationMessage(t.contestForm.emailResent);
+      } else {
+        setError(data.error || "Failed to resend email");
+      }
+    } catch (err) {
+      setError("Failed to resend email. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  // Check if user is verified and redirect to referrals page
+  useEffect(() => {
+    if (showEmailVerification && email) {
+      const checkVerificationStatus = async () => {
+        try {
+          const response = await fetch(`/api/giveaway/stats?email=${encodeURIComponent(email)}`);
+          if (response.ok) {
+            const data = await response.json();
+            if (data.success && data.user && data.user.emailVerified) {
+              // User is verified, show referrals page
+              setUser(data.user);
+              setIsSubmitted(true);
+              setShowEmailVerification(false);
+            }
+          }
+        } catch (err) {
+          console.error("Error checking verification status:", err);
+        }
+      };
+
+      // Check every 5 seconds
+      const interval = setInterval(checkVerificationStatus, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [showEmailVerification, email]);
+
+  // Show email verification screen
+  if (showEmailVerification) {
+    return (
+      <section
+        ref={sectionRef}
+        className={`${styles.waitlistSection} ${
+          isVisible ? styles.visible : ""
+        } ${isRTL ? styles.rtl : ''}`}
+      >
+        <div className={styles.container}>
+          <div className={styles.card}>
+            <div className={styles.emailVerificationState}>
+              <div className={styles.emailIcon}>
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <polyline
+                    points="22,6 12,13 2,6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <h3>{t.contestForm.checkEmailTitle}</h3>
+              <p>{t.contestForm.checkEmailMessage}</p>
+              
+              <div className={styles.emailSentTo}>
+                <strong>{t.contestForm.emailSentTo}</strong> {email}
+              </div>
+              
+              <div className={styles.verificationActions}>
+                <button
+                  onClick={resendVerificationEmail}
+                  disabled={isLoading}
+                  className={styles.resendButton}
+                >
+                  {isLoading ? t.contestForm.submitting : t.contestForm.resendEmail}
+                </button>
+              </div>
+              
+              {verificationMessage && (
+                <div className={styles.verificationMessage}>
+                  {verificationMessage}
+                </div>
+              )}
+              
+              {error && (
+                <div className={styles.errorMessage}>
+                  {error}
+                </div>
+              )}
+              
+              <div className={styles.verificationNote}>
+                <p>{t.contestForm.verificationPending}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (isSubmitted && user) {
     return (

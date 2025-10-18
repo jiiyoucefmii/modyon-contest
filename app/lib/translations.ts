@@ -51,6 +51,12 @@ export interface Translations {
     successfulReferrals: string;
     shareTitle: string;
     creatorShareText: string;
+    emailSentTo: string;
+    checkEmailTitle: string;
+    checkEmailMessage: string;
+    resendEmail: string;
+    emailResent: string;
+    verificationPending: string;
   };
   howItWorks: {
     howItWorks: string;
@@ -153,6 +159,13 @@ export const translations: Record<string, Translations> = {
       successfulReferrals: "Successful Referrals",
       shareTitle: "Share & Earn",
       creatorShareText: "Share your referral code and earn rewards for every new seller/Buyer you bring to Modyon!",
+      // Email verification messages
+      checkEmailTitle: "Check Your Email",
+      checkEmailMessage: "We've sent a verification email to your address. Please check your inbox and click the verification link to complete your registration.",
+      emailSentTo: "Email sent to:",
+      resendEmail: "Resend Email",
+      emailResent: "Verification email resent successfully!",
+      verificationPending: "Email verification pending",
     },
     prizes: {
       title: "30,000 DZD Cash Prizes",
@@ -273,6 +286,13 @@ export const translations: Record<string, Translations> = {
       successfulReferrals: "الإحالات الناجحة",
       shareTitle: "شارك واربح",
       creatorShareText: "شارك رمز الإحالة الخاص بك واربح مكافآت عن كل بائع أو مشتري جديد تجلبه إلى موديون!",
+      // Email verification messages
+      checkEmailTitle: "تحقق من بريدك الإلكتروني",
+      checkEmailMessage: "لقد أرسلنا رسالة تحقق إلى عنوان بريدك الإلكتروني. يرجى التحقق من صندوق الوارد والنقر على رابط التحقق لإكمال التسجيل.",
+      emailSentTo: "تم إرسال البريد إلى:",
+      resendEmail: "إعادة إرسال البريد",
+      emailResent: "تم إعادة إرسال بريد التحقق بنجاح!",
+      verificationPending: "التحقق من البريد الإلكتروني معلق",
     },
     prizes: {
       title: "30,000 دج كجوائز نقدية",
@@ -394,6 +414,13 @@ export const translations: Record<string, Translations> = {
       successfulReferrals: "Parrainages réussis",
       shareTitle: "Partagez et gagnez",
       creatorShareText: "Partagez votre code de parrainage et gagnez des récompenses pour chaque nouveau vendeur ou acheteur que vous amenez à Modyon !",
+      // Email verification messages
+      checkEmailTitle: "Vérifiez votre e-mail",
+      checkEmailMessage: "Nous avons envoyé un e-mail de vérification à votre adresse. Veuillez vérifier votre boîte de réception et cliquer sur le lien de vérification pour terminer votre inscription.",
+      emailSentTo: "E-mail envoyé à :",
+      resendEmail: "Renvoyer l'e-mail",
+      emailResent: "E-mail de vérification renvoyé avec succès !",
+      verificationPending: "Vérification de l'e-mail en attente",
     },
     prizes: {
       title: "30 000 DZD en prix en espèces",

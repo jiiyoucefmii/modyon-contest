@@ -28,7 +28,8 @@ export async function GET(request: NextRequest) {
         email: user.email,
         referralCode: user.referralCode,
         entries: user.entries,
-        userType: user.userType, // Add the missing userType field
+        userType: user.userType,
+        emailVerified: user.emailVerified, // Add email verification status
         referralLink: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}?ref=${user.referralCode}`
       }
     });

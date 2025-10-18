@@ -143,7 +143,7 @@ export default function VerifyPage() {
                 <div style={{ marginTop: 10, color: "#888", fontSize: 13 }}>Share this code to earn bonus entries!</div>
               </div>
             )}
-            <button onClick={goHome} style={{ marginTop: "2.2rem", background: brand.primary, color: "#fff", border: 0, borderRadius: 8, padding: "13px 28px", fontWeight: 600, fontSize: 16, cursor: "pointer", boxShadow: "0 2px 8px rgba(0,123,255,0.08)" }}>Go to Contest</button>
+            <button onClick={goHome} style={{ marginTop: "2.2rem", background: brand.primary, color: "#fff", border: 0, borderRadius: 8, padding: "13px 28px", fontWeight: 600, fontSize: 16, cursor: "pointer", boxShadow: "0 2px 8px rgba(0,123,255,0.08)" }}>Continue to Referrals</button>
           </div>
         )}
 
