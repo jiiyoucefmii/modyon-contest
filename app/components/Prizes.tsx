@@ -4,7 +4,7 @@ import styles from './Prizes.module.css';
 import { useLanguage } from '../lib/LanguageContext';
 
 export default function Prizes() {
-  const { t, isRTL } = useLanguage();
+  const { t } = useLanguage();
 
   const handleScrollToForm = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

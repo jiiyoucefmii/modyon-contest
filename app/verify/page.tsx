@@ -87,7 +87,7 @@ export default function VerifyPage() {
         } catch {
           // Ignore secondary fetch errors
         }
-      } catch (e) {
+      } catch {
         setState("error");
         setMessage("Network error while verifying. Please try again.");
       }

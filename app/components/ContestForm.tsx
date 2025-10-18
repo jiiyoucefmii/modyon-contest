@@ -111,8 +111,9 @@ export default function ContestForm() {
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      const currentRef = sectionRef.current;
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -189,7 +190,7 @@ export default function ContestForm() {
     const text = `${t.contestForm.shareText}`;
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(referralLink)}&quote=${encodeURIComponent(text)}`;
     window.open(facebookUrl, "_blank");
-  }, [user, copyReferralLink, t]);
+  }, [user, copyReferralLink]);
 
   const shareOnWhatsApp = useCallback(() => {
     if (!user) return;
@@ -240,7 +241,7 @@ export default function ContestForm() {
       } else {
         setError(data.error || "Failed to resend email");
       }
-    } catch (err) {
+    } catch {
       setError("Failed to resend email. Please try again.");
     } finally {
       setIsLoading(false);
